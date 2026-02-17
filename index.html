@@ -3,359 +3,450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brand Concept Presentation</title>
+    <title>Brand Concept | Interactive Demo</title>
     
-    <!-- Google Fonts (All 3 Themes) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* =========================================
-           1. CSS VARIABLES (THEME ENGINE)
+           1. CORE VARIABLES & RESET
            ========================================= */
         :root {
-            /* DEFAULT (Minimal Luxury) */
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --primary-color: #000000;
-            --secondary-color: #f4f4f4;
-            --accent-color: #000000;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
-            --btn-radius: 0px;
-            --nav-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            --card-shadow: none;
-            --hero-overlay: rgba(0,0,0,0.3);
-        }
-
-        /* THEME 2: STREETWEAR BOLD */
-        body.theme-street {
-            --bg-color: #0a0a0a;
-            --text-color: #ffffff;
-            --primary-color: #ccff00; /* Neon Green */
-            --secondary-color: #1a1a1a;
-            --accent-color: #ffffff;
-            --font-heading: 'Oswald', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --btn-radius: 0px;
-            --nav-shadow: 0 2px 10px rgba(204, 255, 0, 0.2);
-            --card-shadow: 0 5px 15px rgba(255,255,255,0.05);
-            --hero-overlay: rgba(0,0,0,0.6);
-        }
-
-        /* THEME 3: COMMERCIAL STORE */
-        body.theme-commercial {
-            --bg-color: #f9f9f9;
-            --text-color: #333333;
-            --primary-color: #0066cc; /* Trust Blue */
-            --secondary-color: #ffffff;
-            --accent-color: #ff6600; /* Sale Orange */
+            --transition-speed: 0.4s;
             --font-heading: 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
-            --btn-radius: 8px;
-            --nav-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            --card-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            --hero-overlay: rgba(0,0,0,0.4);
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --primary-color: #000000;
+            --secondary-color: #f4f4f4;
+            --accent-color: #333333;
+            --border-radius: 4px;
+            --container-width: 1200px;
+            --nav-height: 80px;
+            --hero-height: 85vh;
+            --grid-cols: 4;
+            --card-border: 1px solid #eee;
+            --card-shadow: none;
+            --btn-style: solid;
+            --spacing-unit: 1rem;
         }
 
-        /* =========================================
-           2. GLOBAL RESET & BASE STYLES
-           ========================================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.4s ease, color 0.4s ease; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: var(--font-body);
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
             overflow-x: hidden;
         }
 
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
         img { max-width: 100%; display: block; }
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
+        button { cursor: pointer; border: none; font-family: inherit; }
 
         /* =========================================
-           3. NAVIGATION
+           2. THEME OVERRIDES (THE MAGIC)
            ========================================= */
+        
+        /* --- THEME 1: MINIMAL LUXURY (Default) --- */
+        body.theme-minimal {
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --primary-color: #000000;
+            --secondary-color: #fafafa;
+            --border-radius: 0px;
+            --grid-cols: 3;
+            --card-border: none;
+            --card-shadow: none;
+            --spacing-unit: 2rem;
+        }
+        body.theme-minimal .hero-title { font-style: italic; font-weight: 400; letter-spacing: -1px; }
+        body.theme-minimal .btn-primary { background: transparent; border: 1px solid #000; color: #000; }
+        body.theme-minimal .btn-primary:hover { background: #000; color: #fff; }
+        body.theme-minimal .product-card:hover { transform: translateY(-5px); }
+
+        /* --- THEME 2: STREETWEAR HYPE --- */
+        body.theme-street {
+            --font-heading: 'Oswald', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --bg-color: #050505;
+            --text-color: #ffffff;
+            --primary-color: #ccff00; /* Neon Lime */
+            --secondary-color: #111111;
+            --accent-color: #ffffff;
+            --border-radius: 0px;
+            --grid-cols: 2;
+            --card-border: 2px solid #333;
+            --card-shadow: 5px 5px 0px #333;
+            --spacing-unit: 1rem;
+            --nav-height: 60px;
+        }
+        body.theme-street .navbar { border-bottom: 2px solid #333; }
+        body.theme-street .hero-title { font-size: 5rem; text-transform: uppercase; letter-spacing: 2px; }
+        body.theme-street .hero-subtitle { text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        body.theme-street .btn-primary { background: var(--primary-color); color: #000; border: none; font-weight: 700; text-transform: uppercase; }
+        body.theme-street .btn-primary:hover { transform: skew(-10deg); box-shadow: 5px 5px 0px #fff; }
+        body.theme-street .section-title { text-align: left; border-left: 5px solid var(--primary-color); padding-left: 20px; }
+        body.theme-street .section-title::after { display: none; }
+        body.theme-street .product-card { transition: 0.2s; }
+        body.theme-street .product-card:hover { transform: translate(-5px, -5px); box-shadow: 10px 10px 0px var(--primary-color); border-color: var(--primary-color); }
+        body.theme-street .badge { background: var(--primary-color); color: #000; font-weight: 700; }
+        body.theme-street .nav-links a { text-transform: uppercase; font-weight: 700; }
+        body.theme-street .cart-sidebar { border-left: 2px solid #333; }
+
+        /* --- THEME 3: COMMERCIAL STORE --- */
+        body.theme-commercial {
+            --font-heading: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --bg-color: #f0f2f5;
+            --text-color: #333333;
+            --primary-color: #0066ff; /* Trust Blue */
+            --secondary-color: #ffffff;
+            --accent-color: #ff3333;
+            --border-radius: 8px;
+            --grid-cols: 4;
+            --card-border: 1px solid #e1e4e8;
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            --spacing-unit: 1.5rem;
+            --nav-height: 70px;
+        }
+        body.theme-commercial .navbar { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        body.theme-commercial .hero { height: 60vh; background-position: center 30%; }
+        body.theme-commercial .hero-title { font-size: 3rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        body.theme-commercial .btn-primary { background: var(--primary-color); color: #fff; border-radius: 50px; padding: 1rem 2.5rem; }
+        body.theme-commercial .btn-primary:hover { background: #0052cc; }
+        body.theme-commercial .product-card { background: #fff; border-radius: var(--border-radius); overflow: hidden; }
+        body.theme-commercial .prod-info { text-align: left; padding: 1.5rem; }
+        body.theme-commercial .price { color: var(--primary-color); }
+        body.theme-commercial .btn-add { background: #f0f2f5; color: #333; border: none; }
+        body.theme-commercial .btn-add:hover { background: var(--primary-color); color: #fff; }
+        body.theme-commercial .section-title::after { background: var(--primary-color); }
+
+        /* =========================================
+           3. LAYOUT COMPONENTS
+           ========================================= */
+        
+        /* Navigation */
         .navbar {
+            height: var(--nav-height);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
+            padding: 0 5%;
             position: sticky;
             top: 0;
             background: var(--bg-color);
-            z-index: 100;
-            box-shadow: var(--nav-shadow);
+            z-index: 1000;
+            transition: 0.3s;
         }
-
-        .logo { 
-            font-family: var(--font-heading); 
-            font-size: 1.8rem; 
-            font-weight: 700; 
-            letter-spacing: 2px; 
-            text-transform: uppercase;
-        }
-
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
         .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { 
-            font-weight: 600; 
-            font-size: 0.9rem; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
+        .nav-icons { display: flex; gap: 1.5rem; font-size: 1.2rem; align-items: center; }
+        .cart-icon-wrap { position: relative; cursor: pointer; }
+        .cart-count {
+            position: absolute; top: -8px; right: -8px;
+            background: var(--primary-color); color: #fff;
+            font-size: 0.7rem; width: 18px; height: 18px;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: 700;
         }
-        .nav-links a:hover { color: var(--primary-color); }
-
-        .nav-icons { display: flex; gap: 1.5rem; font-size: 1.2rem; cursor: pointer; }
         .menu-toggle { display: none; }
 
-        /* =========================================
-           4. HERO SECTION
-           ========================================= */
+        /* Hero */
         .hero {
-            height: 85vh;
+            height: var(--hero-height);
             background: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
-        }
-
-        .hero::after {
-            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
-            background: var(--hero-overlay);
-        }
-
-        .hero-content { position: relative; z-index: 2; color: #fff; max-width: 800px; padding: 0 20px; }
-        
-        .hero-title {
-            font-family: var(--font-heading);
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle { font-size: 1.3rem; margin-bottom: 2.5rem; font-weight: 300; }
-
-        .btn-primary {
-            background: var(--primary-color);
-            color: var(--bg-color); /* Contrast text */
-            padding: 1rem 3rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            border-radius: var(--btn-radius);
             transition: 0.3s;
+        }
+        .hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+        body.theme-minimal .hero::after { background: rgba(255,255,255,0.1); }
+        body.theme-street .hero::after { background: rgba(0,0,0,0.7); }
+        
+        .hero-content { position: relative; z-index: 2; color: #fff; max-width: 800px; padding: 20px; }
+        body.theme-minimal .hero-content { color: #111; }
+        body.theme-commercial .hero-content { color: #fff; }
+
+        .hero-title { font-size: 4rem; margin-bottom: 1rem; transition: 0.3s; }
+        .hero-subtitle { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
+        
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            text-transform: uppercase;
+            font-weight: 600;
             display: inline-block;
-            border: 2px solid var(--primary-color);
+            transition: 0.3s;
         }
 
-        /* Special fix for Streetwear theme button text */
-        body.theme-street .btn-primary { color: #000; }
-        body.theme-commercial .btn-primary { color: #fff; }
-
-        .btn-primary:hover { 
-            opacity: 0.9; 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        /* =========================================
-           5. SECTIONS (Categories & Products)
-           ========================================= */
-        section { padding: 5rem 5%; }
-
+        /* Sections */
+        section { padding: calc(var(--spacing-unit) * 3) 5%; max-width: var(--container-width); margin: 0 auto; }
         .section-title {
-            font-family: var(--font-heading);
-            text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
+            text-align: center;
             text-transform: uppercase;
             position: relative;
         }
-        
         .section-title::after {
-            content: ''; display: block; width: 60px; height: 3px; 
-            background: var(--primary-color); margin: 10px auto 0;
+            content: ''; display: block; width: 50px; height: 3px;
+            background: var(--primary-color); margin: 15px auto 0;
         }
+        body.theme-street .section-title::after { margin: 15px 0 0; }
 
-        /* Categories */
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .cat-card { position: relative; overflow: hidden; cursor: pointer; height: 400px; }
+        /* Grids */
+        .category-grid, .product-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        body.theme-street .product-grid { grid-template-columns: repeat(2, 1fr); }
+        body.theme-commercial .product-grid { grid-template-columns: repeat(4, 1fr); }
+        body.theme-minimal .product-grid { grid-template-columns: repeat(3, 1fr); }
+
+        /* Cards */
+        .cat-card { position: relative; height: 400px; overflow: hidden; cursor: pointer; }
         .cat-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
         .cat-card:hover img { transform: scale(1.1); }
         .cat-card h3 {
-            position: absolute; bottom: 30px; left: 30px;
-            color: #fff; font-size: 2rem; text-transform: uppercase; 
-            font-family: var(--font-heading);
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: absolute; bottom: 20px; left: 20px;
+            color: #fff; font-size: 1.5rem; text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        /* Products */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
-        
-        .product-card { 
-            background: var(--secondary-color); 
-            transition: 0.3s; 
-            border: 1px solid transparent;
+        .product-card {
+            background: var(--secondary-color);
+            border: var(--card-border);
+            box-shadow: var(--card-shadow);
+            transition: 0.3s;
+            position: relative;
         }
-        
-        body.theme-commercial .product-card { background: #fff; border: 1px solid #eee; }
-
-        .prod-img { position: relative; overflow: hidden; height: 350px; background: #ddd; }
+        .prod-img { height: 350px; overflow: hidden; position: relative; background: #ddd; }
         .prod-img img { width: 100%; height: 100%; object-fit: cover; }
-        
         .badge {
-            position: absolute; top: 15px; left: 15px;
-            background: var(--primary-color); color: var(--bg-color);
-            padding: 5px 15px; font-size: 0.7rem; font-weight: 700; 
-            text-transform: uppercase; letter-spacing: 1px;
+            position: absolute; top: 10px; left: 10px;
+            background: var(--primary-color); color: #fff;
+            padding: 5px 10px; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase;
         }
         body.theme-street .badge { color: #000; }
-
-        .prod-info { padding: 1.5rem; text-align: center; }
-        .prod-info h4 { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600; }
-        .price { font-weight: 700; color: var(--primary-color); font-size: 1.2rem; margin-bottom: 1rem; }
+        
+        .prod-info { padding: 1.5rem; }
+        .prod-info h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .price { font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; display: block; }
         
         .btn-add {
-            background: transparent; border: 1px solid var(--text-color);
-            padding: 0.8rem 2rem; cursor: pointer; text-transform: uppercase;
-            font-weight: 600; transition: 0.3s; width: 100%;
+            width: 100%;
+            padding: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            background: transparent;
+            border: 1px solid var(--text-color);
             color: var(--text-color);
+            transition: 0.3s;
         }
-        .btn-add:hover { background: var(--primary-color); color: var(--bg-color); border-color: var(--primary-color); }
+        .btn-add:hover { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
         body.theme-street .btn-add:hover { color: #000; }
 
-        /* =========================================
-           6. FOOTER
-           ========================================= */
-        footer { background: #111; color: #fff; padding: 4rem 5% 1rem; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
-        .footer-col h3 { font-family: var(--font-heading); margin-bottom: 1rem; color: var(--primary-color); }
-        .footer-col h4 { margin-bottom: 1rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; color: #888; }
-        .footer-col a { display: block; margin-bottom: 0.5rem; color: #aaa; transition: 0.3s; }
-        .footer-col a:hover { color: #fff; padding-left: 5px; }
-        .socials i { font-size: 1.5rem; margin-right: 1rem; cursor: pointer; transition: 0.3s; }
-        .socials i:hover { color: var(--primary-color); }
-        .copyright { text-align: center; border-top: 1px solid #333; padding-top: 2rem; color: #666; font-size: 0.8rem; }
+        /* Footer */
+        footer { background: #111; color: #fff; padding: 4rem 5%; margin-top: 4rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; max-width: var(--container-width); margin: 0 auto; }
+        .footer-col h3 { color: var(--primary-color); margin-bottom: 1rem; }
+        .footer-col a { display: block; color: #aaa; margin-bottom: 0.5rem; }
+        .footer-col a:hover { color: #fff; }
+        .copyright { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #333; color: #666; }
 
         /* =========================================
-           7. WHATSAPP FLOAT
+           4. CART SIDEBAR (FUNCTIONAL)
            ========================================= */
-        .whatsapp-float {
-            position: fixed; bottom: 30px; right: 30px;
-            background: #25d366; color: #fff;
-            width: 60px; height: 60px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 1000; transition: 0.3s;
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000;
+            opacity: 0; visibility: hidden; transition: 0.3s;
         }
-        .whatsapp-float:hover { transform: scale(1.1); }
+        .cart-overlay.open { opacity: 1; visibility: visible; }
+        
+        .cart-sidebar {
+            position: fixed; top: 0; right: -400px;
+            width: 400px; height: 100%;
+            background: var(--bg-color);
+            z-index: 2001;
+            transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            display: flex; flex-direction: column;
+            border-left: 1px solid #ddd;
+        }
+        body.theme-street .cart-sidebar { width: 350px; border-left: 2px solid #333; }
+        .cart-sidebar.open { right: 0; }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cart-header h3 { font-size: 1.5rem; }
+        .close-cart { font-size: 1.5rem; cursor: pointer; }
+        
+        .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        .cart-item {
+            display: flex; gap: 1rem; margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee; padding-bottom: 1rem;
+        }
+        .cart-item img { width: 80px; height: 80px; object-fit: cover; }
+        .cart-item-details { flex: 1; }
+        .cart-item-title { font-weight: 600; font-size: 0.9rem; }
+        .cart-item-price { color: #666; font-size: 0.9rem; }
+        .remove-item { color: #ff3333; font-size: 0.8rem; cursor: pointer; margin-top: 5px; display: inline-block; }
+        
+        .cart-footer { padding: 1.5rem; border-top: 1px solid #eee; background: var(--secondary-color); }
+        .cart-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem; }
+        .btn-checkout {
+            width: 100%; padding: 1rem;
+            background: var(--primary-color); color: #fff;
+            text-transform: uppercase; font-weight: 700;
+            text-align: center;
+        }
+        body.theme-street .btn-checkout { color: #000; }
+        .empty-cart-msg { text-align: center; color: #999; margin-top: 2rem; }
 
         /* =========================================
-           8. CLIENT SWITCHER PANEL (THE MAGIC)
+           5. THEME SWITCHER PANEL
            ========================================= */
         .switcher-panel {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
+            position: fixed; bottom: 30px; left: 50%;
             transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             border-radius: 50px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 2000;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
+            z-index: 3000;
+            display: flex; gap: 1rem; align-items: center;
             border: 1px solid #ddd;
         }
-
-        .switcher-label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #333;
-            margin-right: 10px;
-        }
-
+        .switcher-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #333; }
         .theme-btn {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 30px;
-            font-size: 0.85rem;
+            padding: 0.6rem 1.2rem; border: 1px solid #ddd;
+            background: #fff; border-radius: 30px;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer;
             transition: 0.3s;
-            background: #eee;
-            color: #333;
         }
-
         .theme-btn:hover { transform: translateY(-2px); }
-        .theme-btn.active { background: #111; color: #fff; }
-        
-        /* Hide switcher on mobile if needed, or keep it for demo */
+        .theme-btn.active { background: #111; color: #fff; border-color: #111; }
+        body.theme-street .theme-btn.active { background: #ccff00; color: #000; border-color: #ccff00; }
+        body.theme-commercial .theme-btn.active { background: #0066ff; color: #fff; border-color: #0066ff; }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed; bottom: 100px; left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #111; color: #fff;
+            padding: 1rem 2rem; border-radius: 50px;
+            opacity: 0; visibility: hidden;
+            transition: 0.3s; z-index: 4000;
+            font-weight: 600; font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        body.theme-street .toast { background: #ccff00; color: #000; }
+        body.theme-commercial .toast { background: #0066ff; }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .switcher-panel {
-                bottom: 100px; /* Move above WhatsApp */
-                width: 90%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
             .nav-links {
-                position: absolute; top: 70px; right: 0;
-                background: var(--bg-color); width: 100%;
-                flex-direction: column; align-items: center;
-                padding: 2rem 0; display: none;
-                border-bottom: 1px solid #ddd;
+                position: absolute; top: var(--nav-height); left: 0;
+                width: 100%; background: var(--bg-color);
+                flex-direction: column; padding: 2rem;
+                display: none; border-bottom: 1px solid #ddd;
             }
             .nav-links.active { display: flex; }
-            .menu-toggle { display: block; }
+            .menu-toggle { display: block; cursor: pointer; }
             .hero-title { font-size: 2.5rem; }
+            .switcher-panel { bottom: 100px; width: 90%; justify-content: center; flex-wrap: wrap; }
+            .cart-sidebar { width: 100%; right: -100%; }
+            body.theme-street .product-grid { grid-template-columns: 1fr; }
+            body.theme-commercial .product-grid { grid-template-columns: repeat(2, 1fr); }
+            body.theme-minimal .product-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body class="theme-minimal">
 
-    <!-- 🎮 CLIENT SWITCHER PANEL -->
+    <!-- 🎮 THEME SWITCHER -->
     <div class="switcher-panel">
-        <span class="switcher-label">Choose Style:</span>
+        <span class="switcher-label">Select Vibe:</span>
         <button class="theme-btn active" onclick="setTheme('theme-minimal')">Minimal</button>
         <button class="theme-btn" onclick="setTheme('theme-street')">Streetwear</button>
         <button class="theme-btn" onclick="setTheme('theme-commercial')">Store</button>
     </div>
 
-    <!-- Navigation -->
+    <!-- 🛒 CART SIDEBAR -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Items injected via JS -->
+            <p class="empty-cart-msg">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">₵0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- 🔔 TOAST NOTIFICATION -->
+    <div class="toast" id="toast">Item added to cart!</div>
+
+    <!-- 🧭 NAVIGATION -->
     <nav class="navbar">
         <div class="logo">BRAND.</div>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#">Shop</a></li>
+            <li><a href="#shop">Shop</a></li>
             <li><a href="#">Collections</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
         <div class="nav-icons">
             <i class="fas fa-search"></i>
-            <i class="fas fa-shopping-cart"></i>
-            <i class="fas fa-bars menu-toggle"></i>
+            <div class="cart-icon-wrap" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+            <i class="fas fa-bars menu-toggle" onclick="toggleMenu()"></i>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- 🖼 HERO -->
     <header class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Define Your Style</h1>
-            <p class="hero-subtitle">Premium clothing designed for the modern individual. Quality meets comfort.</p>
-            <a href="#" class="btn-primary">Shop Collection</a>
+            <p class="hero-subtitle">Premium clothing designed for the modern individual.</p>
+            <a href="#shop" class="btn-primary">Shop Collection</a>
         </div>
     </header>
 
-    <!-- Categories -->
+    <!-- 📂 CATEGORIES -->
     <section class="categories">
         <h2 class="section-title">Shop By Category</h2>
         <div class="category-grid">
@@ -374,8 +465,8 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="products">
+    <!-- 🛍 PRODUCTS -->
+    <section class="products" id="shop">
         <h2 class="section-title">New Arrivals</h2>
         <div class="product-grid">
             <!-- Product 1 -->
@@ -386,8 +477,8 @@
                 </div>
                 <div class="prod-info">
                     <h4>Classic White Tee</h4>
-                    <p class="price">₵150.00</p>
-                    <button class="btn-add">Add to Cart</button>
+                    <span class="price">₵150.00</span>
+                    <button class="btn-add" onclick="addToCart('Classic White Tee', 150, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80')">Add to Cart</button>
                 </div>
             </div>
             <!-- Product 2 -->
@@ -397,8 +488,8 @@
                 </div>
                 <div class="prod-info">
                     <h4>Urban Hoodie</h4>
-                    <p class="price">₵350.00</p>
-                    <button class="btn-add">Add to Cart</button>
+                    <span class="price">₵350.00</span>
+                    <button class="btn-add" onclick="addToCart('Urban Hoodie', 350, 'https://images.unsplash.com/photo-1551028919-ac7bcb7d0152?auto=format&fit=crop&w=600&q=80')">Add to Cart</button>
                 </div>
             </div>
             <!-- Product 3 -->
@@ -409,42 +500,41 @@
                 </div>
                 <div class="prod-info">
                     <h4>Denim Jacket</h4>
-                    <p class="price">₵450.00</p>
-                    <button class="btn-add">Add to Cart</button>
+                    <span class="price">₵450.00</span>
+                    <button class="btn-add" onclick="addToCart('Denim Jacket', 450, 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80')">Add to Cart</button>
                 </div>
             </div>
-             <!-- Product 4 -->
-             <div class="product-card">
+            <!-- Product 4 -->
+            <div class="product-card">
                 <div class="prod-img">
                     <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="Product">
                 </div>
                 <div class="prod-info">
                     <h4>Black Essential</h4>
-                    <p class="price">₵200.00</p>
-                    <button class="btn-add">Add to Cart</button>
+                    <span class="price">₵200.00</span>
+                    <button class="btn-add" onclick="addToCart('Black Essential', 200, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80')">Add to Cart</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WhatsApp Float -->
-    <a href="https://wa.me/233000000000" class="whatsapp-float" target="_blank">
+    <!-- 📞 WHATSAPP -->
+    <a href="https://wa.me/233000000000" class="whatsapp-float" style="position:fixed; bottom:30px; right:30px; background:#25d366; color:#fff; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:900; transition:0.3s;" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Footer -->
+    <!-- 🦶 FOOTER -->
     <footer>
         <div class="footer-content">
             <div class="footer-col">
                 <h3>BRAND.</h3>
-                <p>Elevating fashion since 2024. Quality materials, sustainable practices.</p>
+                <p>Elevating fashion since 2024.</p>
             </div>
             <div class="footer-col">
-                <h4>Quick Links</h4>
+                <h4>Links</h4>
                 <a href="#">Home</a>
-                <a href="#">Shop All</a>
-                <a href="#">Track Order</a>
-                <a href="#">Contact Us</a>
+                <a href="#">Shop</a>
+                <a href="#">Contact</a>
             </div>
             <div class="footer-col">
                 <h4>Follow Us</h4>
@@ -452,57 +542,111 @@
                     <i class="fab fa-instagram"></i>
                     <i class="fab fa-facebook"></i>
                     <i class="fab fa-twitter"></i>
-                    <i class="fab fa-tiktok"></i>
                 </div>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2024 Brand Name. All Rights Reserved. Designed for Demo.</p>
+            <p>&copy; 2024 Brand Name. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Theme Switcher Logic
+        // --- 1. THEME SWITCHER ---
         function setTheme(themeName) {
-            // 1. Remove all theme classes from body
             document.body.classList.remove('theme-minimal', 'theme-street', 'theme-commercial');
-            
-            // 2. Add the selected theme class
             document.body.classList.add(themeName);
-
-            // 3. Update Button States
-            const buttons = document.querySelectorAll('.theme-btn');
-            buttons.forEach(btn => {
+            
+            // Update Buttons
+            document.querySelectorAll('.theme-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.getAttribute('onclick').includes(themeName)) {
                     btn.classList.add('active');
                 }
             });
-
-            // 4. Save preference (Optional, keeps it consistent if he refreshes)
             localStorage.setItem('selectedTheme', themeName);
         }
 
-        // Load saved theme on refresh
+        // Load Saved Theme
         window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('selectedTheme') || 'theme-minimal';
-            setTheme(savedTheme);
+            const saved = localStorage.getItem('selectedTheme') || 'theme-minimal';
+            setTheme(saved);
         });
 
-        // Add to Cart Demo
-        const addButtons = document.querySelectorAll('.btn-add');
-        addButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                alert('Item added to cart! (This is a demo)');
-            });
-        });
+        // --- 2. MOBILE MENU ---
+        function toggleMenu() {
+            document.getElementById('nav-links').classList.toggle('active');
+        }
+
+        // --- 3. CART FUNCTIONALITY ---
+        let cart = [];
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        const cartOverlay = document.querySelector('.cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartCountEl = document.getElementById('cart-count');
+        const cartTotalEl = document.getElementById('cart-total-price');
+        const toast = document.getElementById('toast');
+
+        function toggleCart() {
+            cartSidebar.classList.toggle('open');
+            cartOverlay.classList.toggle('open');
+        }
+
+        function addToCart(title, price, image) {
+            cart.push({ title, price, image });
+            updateCartUI();
+            showToast(`Added ${title} to cart`);
+            // Auto open cart on add for demo effect
+            if(!cartSidebar.classList.contains('open')) toggleCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Update Count
+            cartCountEl.innerText = cart.length;
+
+            // Update Total
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            cartTotalEl.innerText = '₵' + total.toFixed(2);
+
+            // Render Items
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Your cart is empty.</p>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.title}</div>
+                            <div class="cart-item-price">₵${item.price.toFixed(2)}</div>
+                            <div class="remove-item" onclick="removeFromCart(${index})">Remove</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function showToast(message) {
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function checkout() {
+            if(cart.length === 0) {
+                showToast("Cart is empty!");
+            } else {
+                alert(`Proceeding to checkout with ${cart.length} items.\nTotal: ${cartTotalEl.innerText}\n\n(This is a demo)`);
+                cart = [];
+                updateCartUI();
+                toggleCart();
+            }
+        }
     </script>
 </body>
 </html>
