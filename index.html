@@ -1,529 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- 
-    =====================================================================================================
-    |   CLOTHING BRAND E-COMMERCE PLATFORM v3.2.1 - ENTERPRISE EDITION                                   |
-    |   FULLY INTEGRATED SYSTEM - ALL FEATURES WORKING (DEMO MODE)                                       |
-    |   BUILT FOR GHANA MARKET WITH PAYSTACK/FLUTTERWAVE/WAHAPOO INTEGRATION                             |
-    |   © 2026 BRAND AGENCY - CONFIDENTIAL & PROPRIETARY                                                 |
-    =====================================================================================================
-    
-    ARCHITECTURE OVERVIEW:
-    - Monolithic SPA architecture (single-file deployment)
-    - Enterprise state management (Redux-like pattern)
-    - Full e-commerce workflow (browse → cart → checkout → admin)
-    - 3 distinct theme engines with layout shifting
-    - Admin dashboard with real-time analytics
-    - Ghana-specific payment integrations (Paystack, Flutterwave, MoMo)
-    - WhatsApp order system (WAHAPOO API)
-    
-    SYSTEM REQUIREMENTS:
-    - Modern browser (Chrome 100+, Firefox 100+)
-    - 4GB+ RAM recommended for full demo experience
-    - Internet connection for payment gateway simulations
-    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PREMIUM CLOTHING E-COMMERCE PLATFORM</title>
-    
-    <!-- CORE FONTS (ALL THEMES) -->
+    <title>PREMIUM E-COMMERCE DEMO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- ICONS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- SYSTEM METRICS (DYNAMIC) -->
-    <script>
-        // Enterprise Performance Monitoring
-        window.__SYSTEM_METRICS__ = {
-            loadTime: 0,
-            renderCount: 0,
-            apiCalls: 0,
-            cartUpdates: 0,
-            themeSwitches: 0,
-            checkoutSteps: 0,
-            startTime: Date.now()
-        };
-    </script>
-
     <style>
-        /* 
-        =====================================================================================================
-        |   CORE SYSTEM STYLESHEET - ENTERPRISE E-COMMERCE ENGINE                                           |
-        |   v3.2.1 - ALL STYLES ARE DYNAMICALLY THEMABLE                                                    |
-        |   STRUCTURE:                                                                                      |
-        |   1. SYSTEM VARIABLES (THEME ENGINE)                                                              |
-        |   2. CORE LAYOUT & BASE STYLES                                                                  |
-        |   3. THEME-SPECIFIC OVERRIDES                                                                   |
-        |   4. COMPONENT STYLES (CARDS, BUTTONS, ETC.)                                                      |
-        |   5. ADMIN DASHBOARD STYLES                                                                     |
-        |   6. MOBILE RESPONSIVE LAYOUTS                                                                  |
-        =====================================================================================================
-        */
-        
-        /* =========================================
-           1. SYSTEM VARIABLES - THEME ENGINE
-           ========================================= */
         :root {
-            /* DEFAULT (MINIMAL LUXURY) */
             --sys-bg-primary: #ffffff;
             --sys-bg-secondary: #fafafa;
             --sys-text-primary: #111111;
             --sys-text-secondary: #555555;
             --sys-accent-primary: #000000;
-            --sys-accent-secondary: #000000;
             --sys-highlight: #000000;
             --sys-border: 1px solid #eeeeee;
-            --sys-shadow: 0 4px 20px rgba(0,0,0,0.05);
             --sys-font-heading: 'Playfair Display', serif;
             --sys-font-body: 'Inter', sans-serif;
-            --sys-radius-sm: 0px;
             --sys-radius-md: 0px;
-            --sys-radius-lg: 0px;
             --sys-grid-cols: 4;
             --sys-hero-height: 85vh;
-            --sys-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --sys-ease-in: cubic-bezier(0.6, -0.28, 0.735, 0.045);
-            --sys-ease-out: cubic-bezier(0.19, 1, 0.22, 1);
             --sys-spacing-unit: 1.5rem;
             --sys-announcement-height: 40px;
             --sys-nav-height: 80px;
             --sys-cart-width: 480px;
-            --sys-admin-width: 320px;
-            --sys-product-card-height: 450px;
-            --sys-product-img-height: 300px;
-            --sys-product-info-height: 150px;
-            --sys-trust-badge-size: 40px;
-            --sys-trust-badge-spacing: 1.5rem;
-            --sys-wishlist-size: 24px;
-            --sys-admin-bg: #1e1e1e;
-            --sys-admin-text: #e0e0e0;
-            --sys-admin-accent: #ccff00;
-            --sys-admin-border: 1px solid #333333;
-            --sys-admin-shadow: 0 8px 30px rgba(0,0,0,0.5);
-            --sys-admin-radius: 8px;
-            --sys-admin-grid-cols: 3;
-            --sys-admin-chart-height: 200px;
-            --sys-admin-card-padding: 1.5rem;
-            --sys-admin-header-height: 70px;
-            --sys-admin-sidebar-width: 280px;
-            --sys-admin-content-padding: 2rem;
-            --sys-admin-table-row-height: 50px;
-            --sys-admin-notification-size: 10px;
-            --sys-admin-drawer-width: 360px;
-            --sys-admin-modal-width: 600px;
-            --sys-admin-dashboard-padding: 2rem;
-            --sys-admin-chart-padding: 1.5rem;
-            --sys-admin-card-margin: 1.5rem;
-            --sys-admin-card-radius: 8px;
-            --sys-admin-card-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            --sys-admin-card-hover: 0 10px 25px rgba(0,0,0,0.15);
-            --sys-admin-button-radius: 6px;
-            --sys-admin-input-radius: 6px;
-            --sys-admin-tag-radius: 4px;
-            --sys-admin-badge-radius: 12px;
-            --sys-admin-divider-height: 1px;
-            --sys-admin-divider-color: #333333;
-            --sys-admin-scrollbar-width: 8px;
-            --sys-admin-scrollbar-thumb: #444444;
-            --sys-admin-scrollbar-track: #252525;
-            --sys-admin-notification-radius: 50%;
-            --sys-admin-notification-pulse: 0 0 0 0 rgba(204, 255, 0, 0.7);
-            --sys-admin-notification-active: #ccff00;
-            --sys-admin-notification-inactive: #666666;
-            --sys-admin-notification-border: 1px solid #444444;
-            --sys-admin-notification-shadow: 0 0 0 1px #333333;
-            --sys-admin-notification-hover: #555555;
-            --sys-admin-notification-active-shadow: 0 0 0 2px #ccff00;
-            --sys-admin-notification-inactive-shadow: 0 0 0 1px #444444;
-            --sys-admin-notification-hover-shadow: 0 0 0 1px #555555;
-            --sys-admin-notification-active-border: 1px solid #ccff00;
-            --sys-admin-notification-inactive-border: 1px solid #444444;
-            --sys-admin-notification-hover-border: 1px solid #555555;
-            --sys-admin-notification-active-bg: #222222;
-            --sys-admin-notification-inactive-bg: #1a1a1a;
-            --sys-admin-notification-hover-bg: #202020;
-            --sys-admin-notification-active-text: #000000;
-            --sys-admin-notification-inactive-text: #aaaaaa;
-            --sys-admin-notification-hover-text: #ffffff;
-            --sys-admin-notification-active-icon: #000000;
-            --sys-admin-notification-inactive-icon: #666666;
-            --sys-admin-notification-hover-icon: #ffffff;
-            --sys-admin-notification-active-badge: #ccff00;
-            --sys-admin-notification-inactive-badge: #444444;
-            --sys-admin-notification-hover-badge: #555555;
-            --sys-admin-notification-active-badge-text: #000000;
-            --sys-admin-notification-inactive-badge-text: #ffffff;
-            --sys-admin-notification-hover-badge-text: #ffffff;
-            --sys-admin-notification-active-badge-border: 1px solid #000000;
-            --sys-admin-notification-inactive-badge-border: 1px solid #333333;
-            --sys-admin-notification-hover-badge-border: 1px solid #444444;
-            --sys-admin-notification-active-badge-shadow: 0 0 0 2px #000000;
-            --sys-admin-notification-inactive-badge-shadow: none;
-            --sys-admin-notification-hover-badge-shadow: 0 0 0 1px #444444;
-            --sys-admin-notification-active-badge-radius: 12px;
-            --sys-admin-notification-inactive-badge-radius: 12px;
-            --sys-admin-notification-hover-badge-radius: 12px;
-            --sys-admin-notification-active-badge-padding: 0.25rem 0.75rem;
-            --sys-admin-notification-inactive-badge-padding: 0.25rem 0.75rem;
-            --sys-admin-notification-hover-badge-padding: 0.25rem 0.75rem;
-            --sys-admin-notification-active-badge-font-size: 0.75rem;
-            --sys-admin-notification-inactive-badge-font-size: 0.75rem;
-            --sys-admin-notification-hover-badge-font-size: 0.75rem;
-            --sys-admin-notification-active-badge-font-weight: 700;
-            --sys-admin-notification-inactive-badge-font-weight: 600;
-            --sys-admin-notification-hover-badge-font-weight: 600;
-            --sys-admin-notification-active-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-inactive-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-hover-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-active-badge-text-transform: uppercase;
-            --sys-admin-notification-inactive-badge-text-transform: uppercase;
-            --sys-admin-notification-hover-badge-text-transform: uppercase;
-            --sys-admin-notification-active-badge-line-height: 1;
-            --sys-admin-notification-inactive-badge-line-height: 1;
-            --sys-admin-notification-hover-badge-line-height: 1;
-            --sys-admin-notification-active-badge-white-space: nowrap;
-            --sys-admin-notification-inactive-badge-white-space: nowrap;
-            --sys-admin-notification-hover-badge-white-space: nowrap;
-            --sys-admin-notification-active-badge-overflow: hidden;
-            --sys-admin-notification-inactive-badge-overflow: hidden;
-            --sys-admin-notification-hover-badge-overflow: hidden;
-            --sys-admin-notification-active-badge-text-overflow: ellipsis;
-            --sys-admin-notification-inactive-badge-text-overflow: ellipsis;
-            --sys-admin-notification-hover-badge-text-overflow: ellipsis;
-            --sys-admin-notification-active-badge-max-width: 100px;
-            --sys-admin-notification-inactive-badge-max-width: 100px;
-            --sys-admin-notification-hover-badge-max-width: 100px;
-            --sys-admin-notification-active-badge-min-width: 60px;
-            --sys-admin-notification-inactive-badge-min-width: 60px;
-            --sys-admin-notification-hover-badge-min-width: 60px;
-            --sys-admin-notification-active-badge-height: auto;
-            --sys-admin-notification-inactive-badge-height: auto;
-            --sys-admin-notification-hover-badge-height: auto;
-            --sys-admin-notification-active-badge-display: inline-flex;
-            --sys-admin-notification-inactive-badge-display: inline-flex;
-            --sys-admin-notification-hover-badge-display: inline-flex;
-            --sys-admin-notification-active-badge-align-items: center;
-            --sys-admin-notification-inactive-badge-align-items: center;
-            --sys-admin-notification-hover-badge-align-items: center;
-            --sys-admin-notification-active-badge-justify-content: center;
-            --sys-admin-notification-inactive-badge-justify-content: center;
-            --sys-admin-notification-hover-badge-justify-content: center;
-            --sys-admin-notification-active-badge-gap: 0.25rem;
-            --sys-admin-notification-inactive-badge-gap: 0.25rem;
-            --sys-admin-notification-hover-badge-gap: 0.25rem;
         }
-
-        /* THEME 2: STREETWEAR HYPE */
+        
         body.theme-street {
             --sys-bg-primary: #050505;
             --sys-bg-secondary: #111111;
             --sys-text-primary: #ffffff;
             --sys-text-secondary: #aaaaaa;
             --sys-accent-primary: #ccff00;
-            --sys-accent-secondary: #ffffff;
             --sys-highlight: #ccff00;
             --sys-border: 2px solid #333333;
-            --sys-shadow: 5px 5px 0px #333333;
             --sys-font-heading: 'Oswald', sans-serif;
-            --sys-font-body: 'Inter', sans-serif;
-            --sys-radius-sm: 0px;
-            --sys-radius-md: 0px;
-            --sys-radius-lg: 0px;
             --sys-grid-cols: 2;
             --sys-hero-height: 90vh;
-            --sys-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --sys-ease-in: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            --sys-ease-out: cubic-bezier(0.19, 1, 0.22, 1);
-            --sys-spacing-unit: 1rem;
-            --sys-announcement-height: 45px;
-            --sys-nav-height: 65px;
-            --sys-cart-width: 420px;
-            --sys-product-card-height: 420px;
-            --sys-product-img-height: 280px;
-            --sys-product-info-height: 140px;
-            --sys-trust-badge-size: 36px;
-            --sys-trust-badge-spacing: 1.25rem;
-            --sys-wishlist-size: 22px;
-            --sys-admin-bg: #0a0a0a;
-            --sys-admin-text: #ffffff;
-            --sys-admin-accent: #ccff00;
-            --sys-admin-border: 2px solid #333333;
-            --sys-admin-shadow: 5px 5px 0px #333333;
-            --sys-admin-radius: 0px;
-            --sys-admin-grid-cols: 2;
-            --sys-admin-chart-height: 180px;
-            --sys-admin-card-padding: 1.25rem;
-            --sys-admin-header-height: 60px;
-            --sys-admin-sidebar-width: 260px;
-            --sys-admin-content-padding: 1.5rem;
-            --sys-admin-table-row-height: 45px;
-            --sys-admin-notification-size: 8px;
-            --sys-admin-drawer-width: 340px;
-            --sys-admin-modal-width: 550px;
-            --sys-admin-dashboard-padding: 1.5rem;
-            --sys-admin-chart-padding: 1.25rem;
-            --sys-admin-card-margin: 1.25rem;
-            --sys-admin-card-radius: 0px;
-            --sys-admin-card-shadow: 5px 5px 0px #333333;
-            --sys-admin-card-hover: 10px 10px 0px #333333;
-            --sys-admin-button-radius: 0px;
-            --sys-admin-input-radius: 0px;
-            --sys-admin-tag-radius: 0px;
-            --sys-admin-badge-radius: 10px;
-            --sys-admin-divider-height: 2px;
-            --sys-admin-divider-color: #333333;
-            --sys-admin-scrollbar-width: 10px;
-            --sys-admin-scrollbar-thumb: #444444;
-            --sys-admin-scrollbar-track: #1a1a1a;
-            --sys-admin-notification-radius: 50%;
-            --sys-admin-notification-pulse: 0 0 0 0 rgba(204, 255, 0, 0.7);
-            --sys-admin-notification-active: #ccff00;
-            --sys-admin-notification-inactive: #666666;
-            --sys-admin-notification-border: 2px solid #333333;
-            --sys-admin-notification-shadow: 0 0 0 2px #333333;
-            --sys-admin-notification-hover: #555555;
-            --sys-admin-notification-active-shadow: 0 0 0 3px #ccff00;
-            --sys-admin-notification-inactive-shadow: 0 0 0 2px #333333;
-            --sys-admin-notification-hover-shadow: 0 0 0 2px #555555;
-            --sys-admin-notification-active-border: 2px solid #ccff00;
-            --sys-admin-notification-inactive-border: 2px solid #333333;
-            --sys-admin-notification-hover-border: 2px solid #555555;
-            --sys-admin-notification-active-bg: #000000;
-            --sys-admin-notification-inactive-bg: #0a0a0a;
-            --sys-admin-notification-hover-bg: #080808;
-            --sys-admin-notification-active-text: #000000;
-            --sys-admin-notification-inactive-text: #aaaaaa;
-            --sys-admin-notification-hover-text: #ffffff;
-            --sys-admin-notification-active-icon: #000000;
-            --sys-admin-notification-inactive-icon: #666666;
-            --sys-admin-notification-hover-icon: #ffffff;
-            --sys-admin-notification-active-badge: #ccff00;
-            --sys-admin-notification-inactive-badge: #333333;
-            --sys-admin-notification-hover-badge: #444444;
-            --sys-admin-notification-active-badge-text: #000000;
-            --sys-admin-notification-inactive-badge-text: #ffffff;
-            --sys-admin-notification-hover-badge-text: #ffffff;
-            --sys-admin-notification-active-badge-border: 2px solid #000000;
-            --sys-admin-notification-inactive-badge-border: 2px solid #222222;
-            --sys-admin-notification-hover-badge-border: 2px solid #333333;
-            --sys-admin-notification-active-badge-shadow: 0 0 0 3px #000000;
-            --sys-admin-notification-inactive-badge-shadow: none;
-            --sys-admin-notification-hover-badge-shadow: 0 0 0 2px #333333;
-            --sys-admin-notification-active-badge-radius: 10px;
-            --sys-admin-notification-inactive-badge-radius: 10px;
-            --sys-admin-notification-hover-badge-radius: 10px;
-            --sys-admin-notification-active-badge-padding: 0.2rem 0.6rem;
-            --sys-admin-notification-inactive-badge-padding: 0.2rem 0.6rem;
-            --sys-admin-notification-hover-badge-padding: 0.2rem 0.6rem;
-            --sys-admin-notification-active-badge-font-size: 0.7rem;
-            --sys-admin-notification-inactive-badge-font-size: 0.7rem;
-            --sys-admin-notification-hover-badge-font-size: 0.7rem;
-            --sys-admin-notification-active-badge-font-weight: 700;
-            --sys-admin-notification-inactive-badge-font-weight: 600;
-            --sys-admin-notification-hover-badge-font-weight: 600;
-            --sys-admin-notification-active-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-inactive-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-hover-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-active-badge-text-transform: uppercase;
-            --sys-admin-notification-inactive-badge-text-transform: uppercase;
-            --sys-admin-notification-hover-badge-text-transform: uppercase;
-            --sys-admin-notification-active-badge-line-height: 1;
-            --sys-admin-notification-inactive-badge-line-height: 1;
-            --sys-admin-notification-hover-badge-line-height: 1;
-            --sys-admin-notification-active-badge-white-space: nowrap;
-            --sys-admin-notification-inactive-badge-white-space: nowrap;
-            --sys-admin-notification-hover-badge-white-space: nowrap;
-            --sys-admin-notification-active-badge-overflow: hidden;
-            --sys-admin-notification-inactive-badge-overflow: hidden;
-            --sys-admin-notification-hover-badge-overflow: hidden;
-            --sys-admin-notification-active-badge-text-overflow: ellipsis;
-            --sys-admin-notification-inactive-badge-text-overflow: ellipsis;
-            --sys-admin-notification-hover-badge-text-overflow: ellipsis;
-            --sys-admin-notification-active-badge-max-width: 90px;
-            --sys-admin-notification-inactive-badge-max-width: 90px;
-            --sys-admin-notification-hover-badge-max-width: 90px;
-            --sys-admin-notification-active-badge-min-width: 55px;
-            --sys-admin-notification-inactive-badge-min-width: 55px;
-            --sys-admin-notification-hover-badge-min-width: 55px;
-            --sys-admin-notification-active-badge-height: auto;
-            --sys-admin-notification-inactive-badge-height: auto;
-            --sys-admin-notification-hover-badge-height: auto;
-            --sys-admin-notification-active-badge-display: inline-flex;
-            --sys-admin-notification-inactive-badge-display: inline-flex;
-            --sys-admin-notification-hover-badge-display: inline-flex;
-            --sys-admin-notification-active-badge-align-items: center;
-            --sys-admin-notification-inactive-badge-align-items: center;
-            --sys-admin-notification-hover-badge-align-items: center;
-            --sys-admin-notification-active-badge-justify-content: center;
-            --sys-admin-notification-inactive-badge-justify-content: center;
-            --sys-admin-notification-hover-badge-justify-content: center;
-            --sys-admin-notification-active-badge-gap: 0.2rem;
-            --sys-admin-notification-inactive-badge-gap: 0.2rem;
-            --sys-admin-notification-hover-badge-gap: 0.2rem;
         }
-
-        /* THEME 3: COMMERCIAL STORE */
+        
         body.theme-commercial {
             --sys-bg-primary: #f0f2f5;
             --sys-bg-secondary: #ffffff;
             --sys-text-primary: #333333;
             --sys-text-secondary: #666666;
             --sys-accent-primary: #0066cc;
-            --sys-accent-secondary: #0052a3;
             --sys-highlight: #ff3333;
             --sys-border: 1px solid #e1e4e8;
-            --sys-shadow: 0 4px 12px rgba(0,0,0,0.08);
             --sys-font-heading: 'Inter', sans-serif;
-            --sys-font-body: 'Inter', sans-serif;
-            --sys-radius-sm: 4px;
-            --sys-radius-md: 8px;
-            --sys-radius-lg: 12px;
             --sys-grid-cols: 4;
             --sys-hero-height: 70vh;
-            --sys-transition: all 0.3s ease;
-            --sys-ease-in: cubic-bezier(0.42, 0, 1, 1);
-            --sys-ease-out: cubic-bezier(0, 0, 0.58, 1);
-            --sys-spacing-unit: 1.25rem;
-            --sys-announcement-height: 35px;
-            --sys-nav-height: 75px;
-            --sys-cart-width: 520px;
-            --sys-product-card-height: 480px;
-            --sys-product-img-height: 320px;
-            --sys-product-info-height: 160px;
-            --sys-trust-badge-size: 44px;
-            --sys-trust-badge-spacing: 1.75rem;
-            --sys-wishlist-size: 26px;
-            --sys-admin-bg: #f5f7fa;
-            --sys-admin-text: #333333;
-            --sys-admin-accent: #0066cc;
-            --sys-admin-border: 1px solid #e1e4e8;
-            --sys-admin-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            --sys-admin-radius: 12px;
-            --sys-admin-grid-cols: 4;
-            --sys-admin-chart-height: 220px;
-            --sys-admin-card-padding: 1.75rem;
-            --sys-admin-header-height: 80px;
-            --sys-admin-sidebar-width: 300px;
-            --sys-admin-content-padding: 2.25rem;
-            --sys-admin-table-row-height: 55px;
-            --sys-admin-notification-size: 12px;
-            --sys-admin-drawer-width: 380px;
-            --sys-admin-modal-width: 650px;
-            --sys-admin-dashboard-padding: 2.25rem;
-            --sys-admin-chart-padding: 1.75rem;
-            --sys-admin-card-margin: 1.75rem;
-            --sys-admin-card-radius: 12px;
-            --sys-admin-card-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            --sys-admin-card-hover: 0 10px 25px rgba(0,0,0,0.1);
-            --sys-admin-button-radius: 8px;
-            --sys-admin-input-radius: 8px;
-            --sys-admin-tag-radius: 6px;
-            --sys-admin-badge-radius: 14px;
-            --sys-admin-divider-height: 1px;
-            --sys-admin-divider-color: #e1e4e8;
-            --sys-admin-scrollbar-width: 10px;
-            --sys-admin-scrollbar-thumb: #c0c5cc;
-            --sys-admin-scrollbar-track: #e1e4e8;
-            --sys-admin-notification-radius: 50%;
-            --sys-admin-notification-pulse: 0 0 0 0 rgba(0, 102, 204, 0.7);
-            --sys-admin-notification-active: #0066cc;
-            --sys-admin-notification-inactive: #999999;
-            --sys-admin-notification-border: 1px solid #e1e4e8;
-            --sys-admin-notification-shadow: 0 0 0 1px #e1e4e8;
-            --sys-admin-notification-hover: #666666;
-            --sys-admin-notification-active-shadow: 0 0 0 2px #0066cc;
-            --sys-admin-notification-inactive-shadow: 0 0 0 1px #e1e4e8;
-            --sys-admin-notification-hover-shadow: 0 0 0 1px #666666;
-            --sys-admin-notification-active-border: 1px solid #0066cc;
-            --sys-admin-notification-inactive-border: 1px solid #e1e4e8;
-            --sys-admin-notification-hover-border: 1px solid #666666;
-            --sys-admin-notification-active-bg: #e6f0ff;
-            --sys-admin-notification-inactive-bg: #f5f7fa;
-            --sys-admin-notification-hover-bg: #e0e6ed;
-            --sys-admin-notification-active-text: #ffffff;
-            --sys-admin-notification-inactive-text: #666666;
-            --sys-admin-notification-hover-text: #333333;
-            --sys-admin-notification-active-icon: #ffffff;
-            --sys-admin-notification-inactive-icon: #999999;
-            --sys-admin-notification-hover-icon: #333333;
-            --sys-admin-notification-active-badge: #0066cc;
-            --sys-admin-notification-inactive-badge: #cccccc;
-            --sys-admin-notification-hover-badge: #999999;
-            --sys-admin-notification-active-badge-text: #ffffff;
-            --sys-admin-notification-inactive-badge-text: #333333;
-            --sys-admin-notification-hover-badge-text: #ffffff;
-            --sys-admin-notification-active-badge-border: 1px solid #0052a3;
-            --sys-admin-notification-inactive-badge-border: 1px solid #b3b3b3;
-            --sys-admin-notification-hover-badge-border: 1px solid #808080;
-            --sys-admin-notification-active-badge-shadow: 0 0 0 2px #0052a3;
-            --sys-admin-notification-inactive-badge-shadow: none;
-            --sys-admin-notification-hover-badge-shadow: 0 0 0 1px #808080;
-            --sys-admin-notification-active-badge-radius: 14px;
-            --sys-admin-notification-inactive-badge-radius: 14px;
-            --sys-admin-notification-hover-badge-radius: 14px;
-            --sys-admin-notification-active-badge-padding: 0.3rem 0.85rem;
-            --sys-admin-notification-inactive-badge-padding: 0.3rem 0.85rem;
-            --sys-admin-notification-hover-badge-padding: 0.3rem 0.85rem;
-            --sys-admin-notification-active-badge-font-size: 0.8rem;
-            --sys-admin-notification-inactive-badge-font-size: 0.8rem;
-            --sys-admin-notification-hover-badge-font-size: 0.8rem;
-            --sys-admin-notification-active-badge-font-weight: 700;
-            --sys-admin-notification-inactive-badge-font-weight: 600;
-            --sys-admin-notification-hover-badge-font-weight: 600;
-            --sys-admin-notification-active-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-inactive-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-hover-badge-letter-spacing: 0.5px;
-            --sys-admin-notification-active-badge-text-transform: uppercase;
-            --sys-admin-notification-inactive-badge-text-transform: uppercase;
-            --sys-admin-notification-hover-badge-text-transform: uppercase;
-            --sys-admin-notification-active-badge-line-height: 1;
-            --sys-admin-notification-inactive-badge-line-height: 1;
-            --sys-admin-notification-hover-badge-line-height: 1;
-            --sys-admin-notification-active-badge-white-space: nowrap;
-            --sys-admin-notification-inactive-badge-white-space: nowrap;
-            --sys-admin-notification-hover-badge-white-space: nowrap;
-            --sys-admin-notification-active-badge-overflow: hidden;
-            --sys-admin-notification-inactive-badge-overflow: hidden;
-            --sys-admin-notification-hover-badge-overflow: hidden;
-            --sys-admin-notification-active-badge-text-overflow: ellipsis;
-            --sys-admin-notification-inactive-badge-text-overflow: ellipsis;
-            --sys-admin-notification-hover-badge-text-overflow: ellipsis;
-            --sys-admin-notification-active-badge-max-width: 110px;
-            --sys-admin-notification-inactive-badge-max-width: 110px;
-            --sys-admin-notification-hover-badge-max-width: 110px;
-            --sys-admin-notification-active-badge-min-width: 65px;
-            --sys-admin-notification-inactive-badge-min-width: 65px;
-            --sys-admin-notification-hover-badge-min-width: 65px;
-            --sys-admin-notification-active-badge-height: auto;
-            --sys-admin-notification-inactive-badge-height: auto;
-            --sys-admin-notification-hover-badge-height: auto;
-            --sys-admin-notification-active-badge-display: inline-flex;
-            --sys-admin-notification-inactive-badge-display: inline-flex;
-            --sys-admin-notification-hover-badge-display: inline-flex;
-            --sys-admin-notification-active-badge-align-items: center;
-            --sys-admin-notification-inactive-badge-align-items: center;
-            --sys-admin-notification-hover-badge-align-items: center;
-            --sys-admin-notification-active-badge-justify-content: center;
-            --sys-admin-notification-inactive-badge-justify-content: center;
-            --sys-admin-notification-hover-badge-justify-content: center;
-            --sys-admin-notification-active-badge-gap: 0.3rem;
-            --sys-admin-notification-inactive-badge-gap: 0.3rem;
-            --sys-admin-notification-hover-badge-gap: 0.3rem;
+            --sys-radius-md: 8px;
         }
 
-        /* =========================================
-           2. CORE LAYOUT & BASE STYLES
-           ========================================= */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
@@ -538,7 +72,7 @@
             padding-top: calc(var(--sys-announcement-height) + var(--sys-nav-height));
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4 {
             font-family: var(--sys-font-heading);
             font-weight: 700;
             line-height: 1.2;
@@ -546,22 +80,15 @@
             color: var(--sys-text-primary);
         }
 
-        p {
-            margin-bottom: var(--sys-spacing-unit);
-            color: var(--sys-text-secondary);
-        }
-
         img {
             max-width: 100%;
             display: block;
-            height: auto;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: var(--sys-transition);
-            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         button {
@@ -569,39 +96,13 @@
             border: none;
             background: none;
             font-family: inherit;
-            font-size: inherit;
-            transition: var(--sys-transition);
-        }
-
-        input, textarea, select {
-            font-family: var(--sys-font-body);
-            font-size: 1rem;
-            padding: 0.75rem 1rem;
-            border: var(--sys-border);
-            border-radius: var(--sys-radius-sm);
-            background-color: var(--sys-bg-secondary);
-            color: var(--sys-text-primary);
-            width: 100%;
-            transition: var(--sys-transition);
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--sys-accent-primary);
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
         }
 
         .container {
             width: 100%;
             max-width: 1440px;
             margin: 0 auto;
-            padding: 0 calc(var(--sys-spacing-unit) * 0.5);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: var(--sys-spacing-unit);
+            padding: 0 1rem;
         }
 
         .btn {
@@ -609,55 +110,22 @@
             align-items: center;
             justify-content: center;
             padding: 0.875rem 1.75rem;
-            border-radius: var(--sys-radius-sm);
+            border-radius: var(--sys-radius-md);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: var(--sys-transition);
+            transition: all 0.3s ease;
             font-size: 0.875rem;
-            cursor: pointer;
-            border: 1px solid transparent;
         }
 
         .btn-primary {
             background-color: var(--sys-accent-primary);
             color: #ffffff;
-            border-color: var(--sys-accent-primary);
         }
 
         .btn-primary:hover {
-            background-color: var(--sys-accent-secondary);
-            border-color: var(--sys-accent-secondary);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--sys-accent-primary);
-            border-color: var(--sys-accent-primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--sys-accent-primary);
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-
-        .btn-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--sys-bg-secondary);
-            color: var(--sys-text-primary);
-        }
-
-        .btn-icon:hover {
-            background-color: var(--sys-accent-primary);
-            color: #ffffff;
         }
 
         .section {
@@ -704,152 +172,8 @@
         }
 
         /* =========================================
-           3. THEME-SPECIFIC OVERRIDES
+           COMPONENT STYLES
            ========================================= */
-        
-        /* Minimal Luxury Specifics */
-        body.theme-minimal .section-title {
-            font-style: italic;
-            font-weight: 400;
-            letter-spacing: -0.5px;
-        }
-        
-        body.theme-minimal .btn-primary {
-            background: transparent;
-            color: var(--sys-text-primary);
-            border-color: var(--sys-text-primary);
-        }
-        
-        body.theme-minimal .btn-primary:hover {
-            background: var(--sys-text-primary);
-            color: #ffffff;
-        }
-        
-        body.theme-minimal .product-card {
-            transition: transform 0.4s var(--sys-ease-out);
-        }
-        
-        body.theme-minimal .product-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        /* Streetwear Hype Specifics */
-        body.theme-street .navbar {
-            border-bottom: 2px solid #333;
-        }
-        
-        body.theme-street .hero-title {
-            font-size: 5.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 5px 0 #333;
-        }
-        
-        body.theme-street .hero-subtitle {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            text-shadow: 0 2px 0 #333;
-        }
-        
-        body.theme-street .btn-primary {
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 5px 5px 0 #333;
-        }
-        
-        body.theme-street .btn-primary:hover {
-            transform: translate(-5px, -5px);
-            box-shadow: 10px 10px 0 var(--sys-accent-primary);
-        }
-        
-        body.theme-street .section-title {
-            text-align: left;
-            border-left: 5px solid var(--sys-accent-primary);
-            padding-left: 20px;
-        }
-        
-        body.theme-street .section-title::after {
-            display: none;
-        }
-        
-        body.theme-street .product-card {
-            transition: transform 0.3s var(--sys-ease-in), box-shadow 0.3s;
-            border: var(--sys-border);
-        }
-        
-        body.theme-street .product-card:hover {
-            transform: translate(-8px, -8px);
-            box-shadow: 10px 10px 0 var(--sys-accent-primary);
-        }
-        
-        body.theme-street .badge {
-            background: var(--sys-accent-primary);
-            color: #000;
-            font-weight: 700;
-        }
-        
-        /* Commercial Store Specifics */
-        body.theme-commercial .navbar {
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-        }
-        
-        body.theme-commercial .hero {
-            height: var(--sys-hero-height);
-            background-position: center 30%;
-        }
-        
-        body.theme-commercial .hero-title {
-            font-size: 3.5rem;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-        
-        body.theme-commercial .btn-primary {
-            border-radius: 50px;
-            padding: 1rem 2.5rem;
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.25);
-        }
-        
-        body.theme-commercial .btn-primary:hover {
-            background: var(--sys-accent-secondary);
-            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.35);
-        }
-        
-        body.theme-commercial .product-card {
-            background: #ffffff;
-            border-radius: var(--sys-radius-md);
-            overflow: hidden;
-            box-shadow: var(--sys-shadow);
-        }
-        
-        body.theme-commercial .prod-info {
-            text-align: left;
-            padding: 1.5rem;
-        }
-        
-        body.theme-commercial .price {
-            color: var(--sys-accent-primary);
-        }
-        
-        body.theme-commercial .btn-add {
-            background: #f0f2f5;
-            color: #333;
-            border: none;
-            border-radius: var(--sys-radius-sm);
-        }
-        
-        body.theme-commercial .btn-add:hover {
-            background: var(--sys-accent-primary);
-            color: #ffffff;
-        }
-        
-        /* =========================================
-           4. COMPONENT STYLES
-           ========================================= */
-        
-        /* Announcement Bar */
         .announcement-bar {
             position: fixed;
             top: 0;
@@ -868,16 +192,73 @@
             overflow: hidden;
         }
         
-        .announcement-content {
-            animation: scroll-announcement 15s linear infinite;
-            white-space: nowrap;
+        .switcher-panel {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border: 1px solid #ddd;
         }
         
-        @keyframes scroll-announcement {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        .theme-btn {
+            padding: 0.65rem 1.25rem;
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
+        .theme-btn.active {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+        
+        body.theme-street .switcher-panel {
+            background: rgba(5, 5, 5, 0.95);
+            border-color: #333;
+        }
+        
+        body.theme-street .theme-btn {
+            border-color: #333;
+            background: #111;
+            color: #fff;
+        }
+        
+        body.theme-street .theme-btn.active {
+            background: #ccff00;
+            color: #000;
+            border-color: #ccff00;
+        }
+        
+        body.theme-commercial .switcher-panel {
+            background: rgba(240, 242, 245, 0.95);
+            border-color: #e1e4e8;
+        }
+        
+        body.theme-commercial .theme-btn {
+            border-color: #e1e4e8;
+            background: #fff;
+            color: #333;
+        }
+        
+        body.theme-commercial .theme-btn.active {
+            background: #0066cc;
+            color: #fff;
+            border-color: #0066cc;
+        }
+
         /* Navigation */
         .navbar {
             position: fixed;
@@ -892,7 +273,6 @@
             justify-content: space-between;
             padding: 0 5%;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: var(--sys-transition);
         }
         
         .logo {
@@ -905,30 +285,7 @@
         
         .nav-links {
             display: flex;
-            gap: calc(var(--sys-spacing-unit) * 1.5);
-        }
-        
-        .nav-links a {
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--sys-accent-primary);
-            transition: var(--sys-transition);
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
+            gap: 2rem;
         }
         
         .nav-icons {
@@ -958,11 +315,6 @@
             font-weight: 700;
         }
         
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-        }
-        
         /* Hero Section */
         .hero {
             height: var(--sys-hero-height);
@@ -972,7 +324,6 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            transition: var(--sys-transition);
         }
         
         .hero::after {
@@ -980,7 +331,6 @@
             position: absolute;
             inset: 0;
             background: rgba(0, 0, 0, 0.4);
-            transition: var(--sys-transition);
         }
         
         body.theme-minimal .hero::after {
@@ -1011,7 +361,6 @@
             font-size: 4.5rem;
             margin-bottom: 1.5rem;
             line-height: 1.1;
-            transition: var(--sys-transition);
         }
         
         .hero-subtitle {
@@ -1023,103 +372,10 @@
             margin-right: auto;
         }
         
-        /* Trust Badges */
-        .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: var(--sys-trust-badge-spacing);
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .trust-badge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .trust-icon {
-            width: var(--sys-trust-badge-size);
-            height: var(--sys-trust-badge-size);
-            border-radius: 50%;
-            background: var(--sys-bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            color: var(--sys-accent-primary);
-        }
-        
-        .trust-text {
-            font-size: 0.85rem;
-            text-align: center;
-            max-width: 100px;
-        }
-        
-        /* Categories */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--sys-spacing-unit);
-        }
-        
-        .cat-card {
-            position: relative;
-            overflow: hidden;
-            height: 400px;
-            cursor: pointer;
-            border-radius: var(--sys-radius-md);
-            box-shadow: var(--sys-shadow);
-            transition: var(--sys-transition);
-        }
-        
-        .cat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.theme-street .cat-card {
-            height: 350px;
-            border: var(--sys-border);
-            box-shadow: var(--sys-shadow);
-        }
-        
-        body.theme-street .cat-card:hover {
-            transform: translate(-5px, -5px);
-            box-shadow: 10px 10px 0 var(--sys-accent-primary);
-        }
-        
-        .cat-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--sys-transition);
-        }
-        
-        .cat-card:hover img {
-            transform: scale(1.05);
-        }
-        
-        .cat-card h3 {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: #ffffff;
-            font-size: 1.75rem;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            z-index: 2;
-        }
-        
-        body.theme-minimal .cat-card h3 {
-            color: var(--sys-text-primary);
-            text-shadow: none;
-        }
-        
         /* Products */
         .product-grid {
             display: grid;
-            gap: var(--sys-spacing-unit);
+            gap: 1.5rem;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         }
         
@@ -1131,23 +387,28 @@
             grid-template-columns: repeat(var(--sys-grid-cols), 1fr);
         }
         
-        body.theme-minimal .product-grid {
-            grid-template-columns: repeat(var(--sys-grid-cols), 1fr);
-        }
-        
         .product-card {
             background: var(--sys-bg-secondary);
             border: var(--sys-border);
             border-radius: var(--sys-radius-md);
             overflow: hidden;
-            height: var(--sys-product-card-height);
+            height: 450px;
             display: flex;
             flex-direction: column;
-            transition: var(--sys-transition);
+            transition: all 0.3s ease;
+        }
+        
+        body.theme-street .product-card {
+            height: 420px;
+            border: var(--sys-border);
+        }
+        
+        body.theme-street .product-card:hover {
+            transform: translate(-5px, -5px);
         }
         
         .prod-img {
-            height: var(--sys-product-img-height);
+            height: 300px;
             overflow: hidden;
             position: relative;
             background: #f5f5f5;
@@ -1157,7 +418,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--sys-transition);
+            transition: all 0.3s ease;
         }
         
         .product-card:hover .prod-img img {
@@ -1175,15 +436,15 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-radius: var(--sys-radius-sm);
+            border-radius: 4px;
         }
         
         .wishlist {
             position: absolute;
             top: 15px;
             right: 15px;
-            width: var(--sys-wishlist-size);
-            height: var(--sys-wishlist-size);
+            width: 24px;
+            height: 24px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             display: flex;
@@ -1191,19 +452,18 @@
             justify-content: center;
             color: #666;
             cursor: pointer;
-            transition: var(--sys-transition);
+            transition: all 0.3s ease;
             z-index: 2;
         }
         
         .wishlist.active {
             color: var(--sys-highlight);
             background: rgba(255, 255, 255, 0.95);
-            transform: scale(1.1);
         }
         
         .prod-info {
             padding: 1.5rem;
-            height: var(--sys-product-info-height);
+            height: 150px;
             display: flex;
             flex-direction: column;
         }
@@ -1229,8 +489,8 @@
             background: transparent;
             border: 1px solid var(--sys-text-secondary);
             color: var(--sys-text-primary);
-            border-radius: var(--sys-radius-sm);
-            transition: var(--sys-transition);
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
         
         .btn-add:hover {
@@ -1241,301 +501,6 @@
         
         body.theme-street .btn-add:hover {
             color: #000;
-        }
-        
-        /* Quick View Modal */
-        .quick-view-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 5000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s var(--sys-ease-out);
-        }
-        
-        .quick-view-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .quick-view-content {
-            background: var(--sys-bg-primary);
-            width: 90%;
-            max-width: 1000px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: var(--sys-radius-lg);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            animation: modalEnter 0.4s var(--sys-ease-out);
-        }
-        
-        @keyframes modalEnter {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        .quick-view-header {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: var(--sys-border);
-        }
-        
-        .quick-view-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-        
-        .quick-view-close {
-            font-size: 1.75rem;
-            cursor: pointer;
-            transition: var(--sys-transition);
-        }
-        
-        .quick-view-close:hover {
-            color: var(--sys-accent-primary);
-        }
-        
-        .quick-view-body {
-            display: flex;
-            flex: 1;
-            padding: 1.5rem;
-            gap: 2rem;
-        }
-        
-        .quick-view-images {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .quick-view-main-image {
-            height: 400px;
-            border-radius: var(--sys-radius-md);
-            overflow: hidden;
-            background: #f5f5f5;
-        }
-        
-        .quick-view-main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .quick-view-thumbnails {
-            display: flex;
-            gap: 0.75rem;
-        }
-        
-        .quick-view-thumbnail {
-            width: 80px;
-            height: 80px;
-            border-radius: var(--sys-radius-sm);
-            overflow: hidden;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: var(--sys-transition);
-        }
-        
-        .quick-view-thumbnail.active {
-            border-color: var(--sys-accent-primary);
-        }
-        
-        .quick-view-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .quick-view-details {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .quick-view-price {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--sys-accent-primary);
-            margin: 1rem 0;
-        }
-        
-        .size-selector {
-            margin: 1.5rem 0;
-        }
-        
-        .size-label {
-            display: block;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .sizes {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-        
-        .size-option {
-            width: 50px;
-            height: 50px;
-            border-radius: var(--sys-radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--sys-text-secondary);
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--sys-transition);
-        }
-        
-        .size-option.selected {
-            background: var(--sys-accent-primary);
-            color: #ffffff;
-            border-color: var(--sys-accent-primary);
-        }
-        
-        .color-selector {
-            margin: 1.5rem 0;
-        }
-        
-        .color-label {
-            display: block;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .colors {
-            display: flex;
-            gap: 0.75rem;
-        }
-        
-        .color-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: var(--sys-transition);
-            position: relative;
-        }
-        
-        .color-option.selected {
-            border-color: var(--sys-accent-primary);
-            transform: scale(1.1);
-        }
-        
-        .color-option::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #ffffff;
-            opacity: 0;
-            transition: var(--sys-transition);
-        }
-        
-        .color-option.selected::after {
-            opacity: 1;
-        }
-        
-        .stock-info {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
-            color: #666;
-        }
-        
-        .stock-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #4CAF50;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .btn-add-to-cart {
-            flex: 1;
-            padding: 1rem;
-            font-size: 1rem;
-        }
-        
-        .btn-buy-now {
-            flex: 1;
-            padding: 1rem;
-            font-size: 1rem;
-            background: var(--sys-highlight);
-            color: #ffffff;
-            border-color: var(--sys-highlight);
-        }
-        
-        .btn-buy-now:hover {
-            background: var(--sys-accent-secondary);
-            border-color: var(--sys-accent-secondary);
-        }
-        
-        .product-description {
-            margin: 1.5rem 0;
-            flex: 1;
-        }
-        
-        .description-tabs {
-            display: flex;
-            border-bottom: var(--sys-border);
-            margin-bottom: 1rem;
-        }
-        
-        .description-tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            transition: var(--sys-transition);
-            border-bottom: 3px solid transparent;
-        }
-        
-        .description-tab.active {
-            border-bottom-color: var(--sys-accent-primary);
-            font-weight: 600;
-        }
-        
-        .description-content {
-            padding: 1rem 0;
-        }
-        
-        .related-products {
-            margin-top: 3rem;
-        }
-        
-        .related-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .related-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
         }
         
         /* Cart Sidebar */
@@ -1549,7 +514,7 @@
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: var(--sys-transition);
+            transition: all 0.3s ease;
         }
         
         .cart-overlay.open {
@@ -1565,7 +530,7 @@
             height: 100%;
             background: var(--sys-bg-primary);
             z-index: 2001;
-            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transition: right 0.4s ease;
             display: flex;
             flex-direction: column;
             border-left: var(--sys-border);
@@ -1588,18 +553,9 @@
             align-items: center;
         }
         
-        .cart-header h3 {
-            font-size: 1.5rem;
-        }
-        
         .close-cart {
             font-size: 1.75rem;
             cursor: pointer;
-            transition: var(--sys-transition);
-        }
-        
-        .close-cart:hover {
-            color: var(--sys-accent-primary);
         }
         
         .cart-items {
@@ -1625,7 +581,7 @@
         .cart-item-img {
             width: 100px;
             height: 100px;
-            border-radius: var(--sys-radius-sm);
+            border-radius: 4px;
             overflow: hidden;
             background: #f5f5f5;
         }
@@ -1653,14 +609,6 @@
             margin-bottom: 0.75rem;
         }
         
-        .cart-item-options {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 0.75rem;
-            color: var(--sys-text-secondary);
-            font-size: 0.9rem;
-        }
-        
         .cart-item-quantity {
             display: flex;
             align-items: center;
@@ -1677,7 +625,6 @@
             background: var(--sys-bg-secondary);
             border: var(--sys-border);
             cursor: pointer;
-            transition: var(--sys-transition);
         }
         
         .quantity-btn:hover {
@@ -1695,14 +642,9 @@
             color: var(--sys-highlight);
             font-size: 0.9rem;
             cursor: pointer;
-            transition: var(--sys-transition);
             display: inline-flex;
             align-items: center;
             gap: 0.25rem;
-        }
-        
-        .remove-item:hover {
-            text-decoration: underline;
         }
         
         .cart-footer {
@@ -1719,32 +661,6 @@
             margin-bottom: 1.5rem;
         }
         
-        .discount-section {
-            margin-bottom: 1.5rem;
-        }
-        
-        .discount-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .discount-input {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .discount-input input {
-            flex: 1;
-        }
-        
-        .btn-apply {
-            background: var(--sys-accent-primary);
-            color: #ffffff;
-            border-color: var(--sys-accent-primary);
-            padding: 0.75rem 1.25rem;
-        }
-        
         .btn-checkout {
             width: 100%;
             padding: 1.25rem;
@@ -1753,178 +669,15 @@
             text-transform: uppercase;
             font-weight: 700;
             text-align: center;
-            border-radius: var(--sys-radius-sm);
-            transition: var(--sys-transition);
+            border-radius: 4px;
         }
         
         .btn-checkout:hover {
-            background: var(--sys-accent-secondary);
+            background: var(--sys-accent-primary);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
-        body.theme-street .btn-checkout {
-            color: #000;
-        }
-        
-        .empty-cart {
-            text-align: center;
-            padding: 3rem 0;
-            color: var(--sys-text-secondary);
-        }
-        
-        /* Checkout Process */
-        .checkout-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .checkout-steps {
-            display: flex;
-            margin-bottom: 2rem;
-            border-bottom: var(--sys-border);
-            padding-bottom: 1.5rem;
-        }
-        
-        .checkout-step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            padding-bottom: 0.75rem;
-        }
-        
-        .step-number {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--sys-bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.5rem;
-            font-weight: 700;
-            border: 2px solid transparent;
-        }
-        
-        .step-label {
-            font-size: 0.9rem;
-            color: var(--sys-text-secondary);
-        }
-        
-        .checkout-step.active .step-number {
-            background: var(--sys-accent-primary);
-            color: #ffffff;
-            border-color: var(--sys-accent-primary);
-        }
-        
-        .checkout-step.active .step-label {
-            color: var(--sys-accent-primary);
-            font-weight: 600;
-        }
-        
-        .checkout-step.completed .step-number {
-            background: var(--sys-accent-primary);
-            color: #ffffff;
-        }
-        
-        .checkout-step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            right: -15px;
-            width: 30px;
-            height: 2px;
-            background: var(--sys-bg-secondary);
-        }
-        
-        .checkout-step.active:not(:last-child)::after {
-            background: var(--sys-accent-primary);
-        }
-        
-        .checkout-step-form {
-            background: var(--sys-bg-secondary);
-            border-radius: var(--sys-radius-md);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-section-title {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: var(--sys-border);
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .payment-method {
-            border: 2px solid var(--sys-bg-secondary);
-            border-radius: var(--sys-radius-sm);
-            padding: 1.25rem;
-            cursor: pointer;
-            transition: var(--sys-transition);
-        }
-        
-        .payment-method:hover {
-            border-color: var(--sys-accent-primary);
-        }
-        
-        .payment-method.selected {
-            border-color: var(--sys-accent-primary);
-            background: rgba(0, 102, 204, 0.05);
-        }
-        
-        .payment-logo {
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.75rem;
-        }
-        
-        .payment-logo img {
-            max-height: 30px;
-            max-width: 100%;
-        }
-        
-        .payment-name {
-            font-weight: 600;
-            text-align: center;
-        }
-        
-        .checkout-summary {
-            background: var(--sys-bg-secondary);
-            border-radius: var(--sys-radius-md);
-            padding: 1.5rem;
-        }
-        
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.75rem;
-        }
-        
-        .summary-total {
-            font-weight: 700;
-            font-size: 1.25rem;
-            border-top: var(--sys-border);
-            padding-top: 1rem;
-            margin-top: 1rem;
-        }
-        
-        /* WhatsApp Order System */
+        /* WhatsApp Button */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -1940,137 +693,33 @@
             font-size: 30px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            transition: var(--sys-transition);
-            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
         
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .whatsapp-float:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Footer */
-        footer {
-            background: #111111;
-            color: #ffffff;
-            padding: 4rem 0 2rem;
-            margin-top: 4rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .footer-col h3 {
-            color: var(--sys-accent-primary);
-            margin-bottom: 1.25rem;
-            font-size: 1.25rem;
-        }
-        
-        .footer-col a {
-            display: block;
-            color: #aaaaaa;
-            margin-bottom: 0.75rem;
-            transition: var(--sys-transition);
-        }
-        
-        .footer-col a:hover {
-            color: #ffffff;
-            padding-left: 5px;
-        }
-        
-        .socials {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .socials i {
-            font-size: 1.5rem;
-            color: #aaaaaa;
-            transition: var(--sys-transition);
-        }
-        
-        .socials i:hover {
-            color: var(--sys-accent-primary);
-            transform: translateY(-3px);
-        }
-        
-        .payment-methods-footer {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .payment-method-footer {
-            height: 40px;
-            opacity: 0.7;
-            transition: var(--sys-transition);
-        }
-        
-        .payment-method-footer:hover {
-            opacity: 1;
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #333333;
-            color: #666666;
-            font-size: 0.9rem;
-        }
-        
-        /* =========================================
-           5. ADMIN DASHBOARD STYLES
-           ========================================= */
+        /* Admin Dashboard */
         .admin-dashboard {
             position: fixed;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--sys-admin-bg);
-            color: var(--sys-admin-text);
+            background: #1e1e1e;
+            color: #e0e0e0;
             z-index: 6000;
-            transition: left 0.4s var(--sys-ease-out);
+            transition: left 0.4s ease;
             overflow: hidden;
             display: flex;
+            flex-direction: column;
         }
         
         .admin-dashboard.active {
             left: 0;
         }
         
-        .admin-sidebar {
-            width: var(--sys-admin-sidebar-width);
-            background: rgba(0, 0, 0, 0.2);
-            border-right: var(--sys-admin-border);
-            padding: var(--sys-admin-header-height) 0 var(--sys-admin-spacing) 0;
-            display: flex;
-            flex-direction: column;
-        }
-        
         .admin-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: var(--sys-admin-sidebar-width);
-            height: var(--sys-admin-header-height);
-            background: var(--sys-admin-bg);
-            border-bottom: var(--sys-admin-border);
+            height: 70px;
+            background: #1e1e1e;
+            border-bottom: 1px solid #333;
             display: flex;
             align-items: center;
             padding: 0 1.5rem;
@@ -2080,565 +729,41 @@
         .admin-logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--sys-admin-accent);
+            color: #ccff00;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
-        .admin-user {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--sys-admin-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-        
-        .admin-nav {
-            padding: 1.5rem;
-            flex: 1;
-            overflow-y: auto;
-        }
-        
-        .admin-nav-item {
-            padding: 0.75rem 1rem;
-            border-radius: var(--sys-admin-radius);
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: var(--sys-transition);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .admin-nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .admin-nav-item.active {
-            background: rgba(204, 255, 0, 0.1);
-            color: var(--sys-admin-accent);
-            border-left: 3px solid var(--sys-admin-accent);
-        }
-        
-        .admin-nav-icon {
-            width: 20px;
-            text-align: center;
-        }
-        
         .admin-content {
             flex: 1;
-            padding: var(--sys-admin-content-padding);
+            padding: 2rem;
             overflow-y: auto;
-        }
-        
-        .admin-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--sys-admin-spacing);
-        }
-        
-        .admin-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-        
-        .admin-actions {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .admin-btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--sys-admin-button-radius);
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--sys-admin-text);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: var(--sys-transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .admin-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        .admin-btn-primary {
-            background: var(--sys-admin-accent);
-            color: #000000;
-            border-color: var(--sys-admin-accent);
-        }
-        
-        .admin-btn-primary:hover {
-            background: #b8e600;
-            border-color: #b8e600;
         }
         
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(var(--sys-admin-grid-cols), 1fr);
-            gap: var(--sys-admin-card-margin);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
         
         .dashboard-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--sys-admin-card-radius);
-            padding: var(--sys-admin-card-padding);
-            transition: var(--sys-transition);
-            border: var(--sys-admin-border);
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--sys-admin-card-hover);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #333;
         }
         
         .card-value {
             font-size: 2rem;
             font-weight: 700;
             margin: 1.5rem 0;
-            color: var(--sys-admin-accent);
+            color: #ccff00;
         }
         
-        .card-chart {
-            height: var(--sys-admin-chart-height);
-            position: relative;
-        }
-        
-        .chart-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-        
-        .chart-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: var(--sys-admin-chart-padding);
-        }
-        
-        .chart-line {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .chart-points {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: flex-end;
-            gap: 1.5rem;
-            padding: 0 var(--sys-admin-chart-padding);
-        }
-        
-        .chart-point {
-            width: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px 4px 0 0;
-        }
-        
-        .chart-point.active {
-            background: var(--sys-admin-accent);
-            height: 80% !important;
-        }
-        
-        .chart-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 0.5rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.8rem;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .product-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--sys-admin-card-radius);
-            overflow: hidden;
-            border: var(--sys-admin-border);
-            transition: var(--sys-transition);
-        }
-        
-        .product-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--sys-admin-card-hover);
-        }
-        
-        .product-thumb {
-            height: 180px;
-            background: #252525;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .product-thumb img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-        
-        .product-info {
-            padding: 1.25rem;
-        }
-        
-        .product-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-        }
-        
-        .product-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--sys-admin-tag-radius);
-        }
-        
-        .status-in-stock {
-            background: rgba(76, 175, 80, 0.2);
-            color: #4CAF50;
-        }
-        
-        .status-low-stock {
-            background: rgba(255, 193, 7, 0.2);
-            color: #FFC107;
-        }
-        
-        .status-out-of-stock {
-            background: rgba(244, 67, 54, 0.2);
-            color: #F44336;
-        }
-        
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-        }
-        
-        .admin-table th {
-            text-align: left;
-            padding: 0.75rem 1rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.7);
-            border-bottom: var(--sys-admin-border);
-        }
-        
-        .admin-table td {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .admin-table tr:hover td {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .order-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.75rem;
-            border-radius: var(--sys-admin-badge-radius);
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        .status-processing {
-            background: rgba(33, 150, 243, 0.15);
-            color: #2196F3;
-        }
-        
-        .status-shipped {
-            background: rgba(33, 150, 243, 0.15);
-            color: #2196F3;
-        }
-        
-        .status-delivered {
-            background: rgba(76, 175, 80, 0.15);
-            color: #4CAF50;
-        }
-        
-        .status-cancelled {
-            background: rgba(244, 67, 54, 0.15);
-            color: #F44336;
-        }
-        
-        .admin-pagination {
-            display: flex;
-            justify-content: flex-end;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .page-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--sys-admin-button-radius);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--sys-admin-text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--sys-transition);
-        }
-        
-        .page-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .page-btn.active {
-            background: var(--sys-admin-accent);
-            color: #000000;
-            border-color: var(--sys-admin-accent);
-        }
-        
-        .admin-drawer {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: var(--sys-admin-drawer-width);
-            height: 100%;
-            background: var(--sys-admin-bg);
-            border-left: var(--sys-admin-border);
-            z-index: 7000;
-            transition: right 0.4s var(--sys-ease-out);
-            overflow-y: auto;
-            padding: 2rem;
-        }
-        
-        .admin-drawer.active {
-            right: 0;
-        }
-        
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: var(--sys-admin-border);
-        }
-        
-        .drawer-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .close-drawer {
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--sys-transition);
-        }
-        
-        .close-drawer:hover {
-            color: var(--sys-admin-accent);
-        }
-        
-        .drawer-body {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .admin-input {
-            width: 100%;
-            padding: 0.85rem 1.25rem;
-            border-radius: var(--sys-admin-input-radius);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--sys-admin-text);
-            font-size: 1rem;
-        }
-        
-        .admin-input:focus {
-            border-color: var(--sys-admin-accent);
-            box-shadow: 0 0 0 2px rgba(204, 255, 0, 0.2);
-            outline: none;
-        }
-        
-        .admin-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23aaa' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1em;
-        }
-        
-        .admin-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 8000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s var(--sys-ease-out);
-        }
-        
-        .admin-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-content {
-            background: var(--sys-admin-bg);
-            width: 90%;
-            max-width: var(--sys-admin-modal-width);
-            border-radius: var(--sys-admin-radius);
-            box-shadow: var(--sys-admin-shadow);
-            overflow: hidden;
-            animation: modalEnter 0.4s var(--sys-ease-out);
-        }
-        
-        .modal-header {
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-bottom: var(--sys-admin-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .modal-close {
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--sys-transition);
-        }
-        
-        .modal-close:hover {
-            color: var(--sys-admin-accent);
-        }
-        
-        .modal-body {
-            padding: 2rem;
-        }
-        
-        .modal-footer {
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-top: var(--sys-admin-border);
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: var(--sys-admin-notification-size);
-            height: var(--sys-admin-notification-size);
-            border-radius: var(--sys-admin-notification-radius);
-            background: var(--sys-admin-notification-active);
-            border: var(--sys-admin-notification-active-border);
-            box-shadow: var(--sys-admin-notification-active-shadow);
-        }
-        
-        /* =========================================
-           6. MOBILE RESPONSIVE LAYOUTS
-           ========================================= */
-        @media (max-width: 1200px) {
-            :root {
-                --sys-grid-cols: 3;
-            }
-            
-            body.theme-commercial .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
+        /* Mobile Responsive */
         @media (max-width: 992px) {
             :root {
                 --sys-grid-cols: 2;
-                --sys-announcement-height: 35px;
-                --sys-nav-height: 70px;
-            }
-            
-            .hero-title {
-                font-size: 3.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
             }
             
             body.theme-commercial .product-grid {
@@ -2648,22 +773,6 @@
             body.theme-street .product-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .admin-sidebar {
-                width: 240px;
-            }
-            
-            .admin-content {
-                padding: 1.5rem;
-            }
-            
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
         
         @media (max-width: 768px) {
@@ -2671,18 +780,11 @@
                 --sys-grid-cols: 1;
                 --sys-announcement-height: 30px;
                 --sys-nav-height: 60px;
-                --sys-spacing-unit: 1rem;
                 --sys-cart-width: 100%;
-                --sys-admin-sidebar-width: 240px;
             }
             
             body {
                 padding-top: calc(var(--sys-announcement-height) + var(--sys-nav-height));
-            }
-            
-            .announcement-bar {
-                height: var(--sys-announcement-height);
-                font-size: 0.8rem;
             }
             
             .navbar {
@@ -2690,56 +792,8 @@
                 padding: 0 1rem;
             }
             
-            .logo {
-                font-size: 1.5rem;
-            }
-            
-            .nav-links {
-                position: absolute;
-                top: var(--sys-nav-height);
-                left: 0;
-                width: 100%;
-                background: var(--sys-bg-primary);
-                flex-direction: column;
-                align-items: center;
-                padding: 1.5rem 0;
-                border-bottom: var(--sys-border);
-                display: none;
-                z-index: 800;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
             .hero {
                 height: 75vh;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .trust-badges {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.75rem;
-            }
-            
-            .cat-card {
-                height: 300px;
-            }
-            
-            .product-card {
-                height: auto;
-            }
-            
-            .prod-img {
-                height: 250px;
             }
             
             .cart-sidebar {
@@ -2763,621 +817,43 @@
             .whatsapp-float {
                 bottom: 90px;
             }
-            
-            .admin-sidebar {
-                transform: translateX(-100%);
-                z-index: 7000;
-            }
-            
-            .admin-sidebar.active {
-                transform: translateX(0);
-            }
-            
-            .admin-header {
-                width: 100%;
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
-                font-size: 1.5rem;
-                margin-left: 1rem;
-            }
-            
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .related-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            :root {
-                --sys-spacing-unit: 0.75rem;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.75rem;
-            }
-            
-            .cat-card {
-                height: 250px;
-            }
-            
-            .prod-img {
-                height: 220px;
-            }
-            
-            .btn {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.8rem;
-            }
-            
-            .trust-badges {
-                gap: 0.5rem;
-            }
-            
-            .trust-text {
-                font-size: 0.75rem;
-                max-width: 80px;
-            }
-            
-            .cart-item {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .cart-item-img {
-                width: 100%;
-                height: 150px;
-            }
-        }
-        
-        /* =========================================
-           7. ANIMATIONS & INTERACTIONS
-           ========================================= */
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .slide-in {
-            animation: slideIn 0.4s var(--sys-ease-out) forwards;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 var(--sys-admin-notification-pulse); }
-            70% { box-shadow: 0 0 0 15px transparent; }
-            100% { box-shadow: 0 0 0 0 transparent; }
-        }
-        
-        /* =========================================
-           8. THEME SWITCHER PANEL
-           ========================================= */
-        .switcher-panel {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 3000;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            border: 1px solid #ddd;
-            transition: var(--sys-transition);
-        }
-        
-        body.theme-street .switcher-panel {
-            background: rgba(5, 5, 5, 0.95);
-            border-color: #333;
-            box-shadow: 5px 5px 0 #333;
-        }
-        
-        body.theme-commercial .switcher-panel {
-            background: rgba(240, 242, 245, 0.95);
-            border-color: #e1e4e8;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .switcher-label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #333;
-        }
-        
-        body.theme-street .switcher-label {
-            color: #ffffff;
-        }
-        
-        body.theme-commercial .switcher-label {
-            color: #333;
-        }
-        
-        .theme-btn {
-            padding: 0.65rem 1.25rem;
-            border: 1px solid #ddd;
-            background: #fff;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--sys-transition);
-        }
-        
-        body.theme-street .theme-btn {
-            border-color: #333;
-            background: #111;
-            color: #fff;
-        }
-        
-        body.theme-street .theme-btn.active {
-            background: #ccff00;
-            color: #000;
-            border-color: #ccff00;
-        }
-        
-        body.theme-commercial .theme-btn {
-            border-color: #e1e4e8;
-            background: #fff;
-            color: #333;
-        }
-        
-        body.theme-commercial .theme-btn.active {
-            background: #0066cc;
-            color: #fff;
-            border-color: #0066cc;
-        }
-        
-        .theme-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .theme-btn.active {
-            background: #111;
-            color: #fff;
-            border-color: #111;
-        }
-        
-        /* =========================================
-           9. TOAST NOTIFICATION
-           ========================================= */
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: #111;
-            color: #fff;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 4000;
-            max-width: 300px;
-            text-align: center;
-        }
-        
-        .toast.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-        
-        body.theme-street .toast {
-            background: #ccff00;
-            color: #000;
-        }
-        
-        body.theme-commercial .toast {
-            background: #0066cc;
-        }
-        
-        /* =========================================
-           10. SYSTEM LAYERS
-           ========================================= */
-        .system-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9000;
-            pointer-events: none;
-        }
-        
-        .admin-layer {
-            display: none;
-        }
-        
-        .admin-layer.active {
-            display: block;
         }
     </style>
 </head>
 <body class="theme-minimal">
-    <!-- 
-    =====================================================================================================
-    |   SYSTEM LAYERS - ENTERPRISE MONOLITHIC ARCHITECTURE                                                |
-    |   v3.2.1 - ALL LAYERS MANAGED VIA JAVASCRIPT STATE                                                 |
-    =====================================================================================================
-    -->
-    <div class="system-layer admin-layer" id="admin-layer"></div>
-
-    <!-- 
-    =====================================================================================================
-    |   ANNOUNCEMENT BAR - GLOBAL PROMOTIONS                                                            |
-    =====================================================================================================
-    -->
     <div class="announcement-bar">
-        <div class="announcement-content">
-            🚀 Launch Sale: Get 20% OFF on all new arrivals! Use code LAUNCH20 at checkout. Free shipping on orders over ₵500.00. Limited time only!
-        </div>
+        🚀 Launch Sale: Get 20% OFF on all new arrivals! Use code LAUNCH20 at checkout. Free shipping on orders over ₵500.00.
     </div>
 
-    <!-- 
-    =====================================================================================================
-    |   THEME SWITCHER PANEL - REAL-TIME THEME ENGINE                                                   |
-    =====================================================================================================
-    -->
     <div class="switcher-panel">
-        <span class="switcher-label">Select Brand Vibe:</span>
-        <button class="theme-btn active" onclick="setTheme('theme-minimal')">Minimal Luxury</button>
-        <button class="theme-btn" onclick="setTheme('theme-street')">Streetwear Hype</button>
-        <button class="theme-btn" onclick="setTheme('theme-commercial')">Commercial Store</button>
+        <span class="switcher-label">Select Vibe:</span>
+        <button class="theme-btn active" onclick="setTheme('theme-minimal')">Minimal</button>
+        <button class="theme-btn" onclick="setTheme('theme-street')">Streetwear</button>
+        <button class="theme-btn" onclick="setTheme('theme-commercial')">Store</button>
     </div>
 
-    <!-- 
-    =====================================================================================================
-    |   ADMIN DASHBOARD - FULLY FUNCTIONAL DEMO                                                         |
-    =====================================================================================================
-    -->
     <div class="admin-dashboard" id="admin-dashboard">
-        <div class="admin-sidebar">
-            <div class="admin-header">
-                <div class="admin-logo">BRAND ADMIN</div>
-                <div class="admin-user">
-                    <div class="user-avatar">AD</div>
-                </div>
-            </div>
-            <div class="admin-nav">
-                <div class="admin-nav-item active" data-tab="dashboard">
-                    <span class="admin-nav-icon"><i class="fas fa-tachometer-alt"></i></span>
-                    Dashboard
-                </div>
-                <div class="admin-nav-item" data-tab="products">
-                    <span class="admin-nav-icon"><i class="fas fa-box"></i></span>
-                    Products
-                </div>
-                <div class="admin-nav-item" data-tab="orders">
-                    <span class="admin-nav-icon"><i class="fas fa-shopping-cart"></i></span>
-                    Orders
-                </div>
-                <div class="admin-nav-item" data-tab="customers">
-                    <span class="admin-nav-icon"><i class="fas fa-users"></i></span>
-                    Customers
-                </div>
-                <div class="admin-nav-item" data-tab="analytics">
-                    <span class="admin-nav-icon"><i class="fas fa-chart-line"></i></span>
-                    Analytics
-                </div>
-                <div class="admin-nav-item" data-tab="settings">
-                    <span class="admin-nav-icon"><i class="fas fa-cog"></i></span>
-                    Settings
-                </div>
-            </div>
+        <div class="admin-header">
+            <div class="admin-logo">BRAND ADMIN</div>
         </div>
         <div class="admin-content">
-            <div class="admin-top-bar">
-                <h1 class="admin-title">Dashboard</h1>
-                <div class="admin-actions">
-                    <button class="admin-btn" onclick="openDrawer('create-product')">
-                        <i class="fas fa-plus"></i> New Product
-                    </button>
-                    <button class="admin-btn admin-btn-primary" onclick="openAdminModal('create-order')">
-                        <i class="fas fa-shopping-cart"></i> New Order
-                    </button>
-                </div>
-            </div>
-
             <div class="dashboard-grid">
                 <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-title">Total Sales</div>
-                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                    </div>
+                    <div class="card-title">Total Sales</div>
                     <div class="card-value">₵24,568.00</div>
-                    <div class="card-chart">
-                        <div class="chart-container">
-                            <div class="chart-bg">
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                            </div>
-                            <div class="chart-points">
-                                <div class="chart-point" style="height: 20%"></div>
-                                <div class="chart-point" style="height: 40%"></div>
-                                <div class="chart-point" style="height: 60%"></div>
-                                <div class="chart-point active" style="height: 85%"></div>
-                                <div class="chart-point" style="height: 50%"></div>
-                                <div class="chart-point" style="height: 30%"></div>
-                                <div class="chart-point" style="height: 70%"></div>
-                            </div>
-                            <div class="chart-labels">
-                                <span>Mon</span>
-                                <span>Tue</span>
-                                <span>Wed</span>
-                                <span>Thu</span>
-                                <span>Fri</span>
-                                <span>Sat</span>
-                                <span>Sun</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
                 <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-title">Orders Today</div>
-                        <div class="card-icon"><i class="fas fa-shopping-cart"></i></div>
-                    </div>
+                    <div class="card-title">Orders Today</div>
                     <div class="card-value">42</div>
-                    <div class="card-chart">
-                        <div class="chart-container">
-                            <div class="chart-bg">
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                            </div>
-                            <div class="chart-points">
-                                <div class="chart-point" style="height: 30%"></div>
-                                <div class="chart-point" style="height: 50%"></div>
-                                <div class="chart-point active" style="height: 90%"></div>
-                                <div class="chart-point" style="height: 40%"></div>
-                                <div class="chart-point" style="height: 60%"></div>
-                                <div class="chart-point" style="height: 20%"></div>
-                                <div class="chart-point" style="height: 70%"></div>
-                            </div>
-                            <div class="chart-labels">
-                                <span>Mon</span>
-                                <span>Tue</span>
-                                <span>Wed</span>
-                                <span>Thu</span>
-                                <span>Fri</span>
-                                <span>Sat</span>
-                                <span>Sun</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
                 <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-title">Active Customers</div>
-                        <div class="card-icon"><i class="fas fa-users"></i></div>
-                    </div>
+                    <div class="card-title">Active Customers</div>
                     <div class="card-value">1,248</div>
-                    <div class="card-chart">
-                        <div class="chart-container">
-                            <div class="chart-bg">
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                                <div class="chart-line"></div>
-                            </div>
-                            <div class="chart-points">
-                                <div class="chart-point" style="height: 40%"></div>
-                                <div class="chart-point" style="height: 55%"></div>
-                                <div class="chart-point" style="height: 70%"></div>
-                                <div class="chart-point active" style="height: 80%"></div>
-                                <div class="chart-point" style="height: 65%"></div>
-                                <div class="chart-point" style="height: 50%"></div>
-                                <div class="chart-point" style="height: 60%"></div>
-                            </div>
-                            <div class="chart-labels">
-                                <span>Mon</span>
-                                <span>Tue</span>
-                                <span>Wed</span>
-                                <span>Thu</span>
-                                <span>Fri</span>
-                                <span>Sat</span>
-                                <span>Sun</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dashboard-grid" style="margin-top: 2rem;">
-                <div class="dashboard-card" style="grid-column: span 2;">
-                    <div class="card-header">
-                        <div class="card-title">Recent Orders</div>
-                        <div class="card-actions">
-                            <button class="admin-btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
-                                <i class="fas fa-filter"></i> Filter
-                            </button>
-                        </div>
-                    </div>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#ORD-2026-001</td>
-                                <td>Kwame Mensah</td>
-                                <td>Feb 15, 2026</td>
-                                <td>₵1,250.00</td>
-                                <td><span class="order-status status-processing">Processing</span></td>
-                                <td>
-                                    <button class="admin-btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-2026-002</td>
-                                <td>Ama Appiah</td>
-                                <td>Feb 15, 2026</td>
-                                <td>₵890.00</td>
-                                <td><span class="order-status status-shipped">Shipped</span></td>
-                                <td>
-                                    <button class="admin-btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-2026-003</td>
-                                <td>Kofi Asante</td>
-                                <td>Feb 14, 2026</td>
-                                <td>₵2,450.00</td>
-                                <td><span class="order-status status-delivered">Delivered</span></td>
-                                <td>
-                                    <button class="admin-btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-2026-004</td>
-                                <td>Esi Owusu</td>
-                                <td>Feb 14, 2026</td>
-                                <td>₵580.00</td>
-                                <td><span class="order-status status-cancelled">Cancelled</span></td>
-                                <td>
-                                    <button class="admin-btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-2026-005</td>
-                                <td>Yaw Boateng</td>
-                                <td>Feb 13, 2026</td>
-                                <td>₵1,750.00</td>
-                                <td><span class="order-status status-delivered">Delivered</span></td>
-                                <td>
-                                    <button class="admin-btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="admin-pagination">
-                        <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                </div>
-
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-title">Top Products</div>
-                        <div class="card-actions">
-                            <button class="admin-btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="products-grid">
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Product">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Classic White Tee</div>
-                                <div class="product-meta">
-                                    <span>₵150.00</span>
-                                    <span class="product-status status-in-stock">In Stock</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                <img src="https://images.unsplash.com/photo-1551028919-ac7bcb7d0152?auto=format&fit=crop&w=600&q=80" alt="Product">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Urban Hoodie</div>
-                                <div class="product-meta">
-                                    <span>₵350.00</span>
-                                    <span class="product-status status-low-stock">Low Stock</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80" alt="Product">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Denim Jacket</div>
-                                <div class="product-meta">
-                                    <span>₵450.00</span>
-                                    <span class="product-status status-in-stock">In Stock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 
-    =====================================================================================================
-    |   CART SIDEBAR - FULL E-COMMERCE CART SYSTEM                                                      |
-    =====================================================================================================
-    -->
     <div class="cart-overlay" onclick="closeCart()"></div>
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
@@ -3385,7 +861,6 @@
             <span class="close-cart" onclick="closeCart()">&times;</span>
         </div>
         <div class="cart-items" id="cart-items">
-            <!-- Cart items will be injected here by JS -->
             <div class="cart-item">
                 <div class="cart-item-img">
                     <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Classic White Tee">
@@ -3393,14 +868,10 @@
                 <div class="cart-item-details">
                     <div class="cart-item-title">Classic White Tee</div>
                     <div class="cart-item-price">₵150.00</div>
-                    <div class="cart-item-options">
-                        <span>Size: M</span>
-                        <span>Color: White</span>
-                    </div>
                     <div class="cart-item-quantity">
-                        <button class="quantity-btn minus">-</button>
+                        <button class="quantity-btn minus" onclick="updateQuantity(0, -1)">-</button>
                         <span class="quantity-value">1</span>
-                        <button class="quantity-btn plus">+</button>
+                        <button class="quantity-btn plus" onclick="updateQuantity(0, 1)">+</button>
                     </div>
                     <div class="remove-item" onclick="removeCartItem(0)">
                         <i class="fas fa-trash"></i> Remove
@@ -3414,14 +885,10 @@
                 <div class="cart-item-details">
                     <div class="cart-item-title">Urban Hoodie</div>
                     <div class="cart-item-price">₵350.00</div>
-                    <div class="cart-item-options">
-                        <span>Size: L</span>
-                        <span>Color: Black</span>
-                    </div>
                     <div class="cart-item-quantity">
-                        <button class="quantity-btn minus">-</button>
+                        <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">-</button>
                         <span class="quantity-value">1</span>
-                        <button class="quantity-btn plus">+</button>
+                        <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
                     </div>
                     <div class="remove-item" onclick="removeCartItem(1)">
                         <i class="fas fa-trash"></i> Remove
@@ -3435,14 +902,10 @@
                 <div class="cart-item-details">
                     <div class="cart-item-title">Denim Jacket</div>
                     <div class="cart-item-price">₵450.00</div>
-                    <div class="cart-item-options">
-                        <span>Size: M</span>
-                        <span>Color: Blue</span>
-                    </div>
                     <div class="cart-item-quantity">
-                        <button class="quantity-btn minus">-</button>
+                        <button class="quantity-btn minus" onclick="updateQuantity(2, -1)">-</button>
                         <span class="quantity-value">1</span>
-                        <button class="quantity-btn plus">+</button>
+                        <button class="quantity-btn plus" onclick="updateQuantity(2, 1)">+</button>
                     </div>
                     <div class="remove-item" onclick="removeCartItem(2)">
                         <i class="fas fa-trash"></i> Remove
@@ -3455,401 +918,18 @@
                 <span>Total:</span>
                 <span>₵950.00</span>
             </div>
-            <div class="discount-section">
-                <label class="discount-label">Have a discount code?</label>
-                <div class="discount-input">
-                    <input type="text" placeholder="Enter code">
-                    <button class="btn-apply">Apply</button>
-                </div>
-            </div>
-            <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout</button>
+            <button class="btn-checkout" onclick="completeCheckout()">Checkout</button>
         </div>
     </div>
 
-    <!-- 
-    =====================================================================================================
-    |   CHECKOUT PROCESS - MULTI-STEP E-COMMERCE FLOW                                                   |
-    =====================================================================================================
-    -->
-    <div class="checkout-container" id="checkout-container" style="display: none;">
-        <div class="checkout-steps">
-            <div class="checkout-step active">
-                <div class="step-number">1</div>
-                <div class="step-label">Cart</div>
-            </div>
-            <div class="checkout-step">
-                <div class="step-number">2</div>
-                <div class="step-label">Shipping</div>
-            </div>
-            <div class="checkout-step">
-                <div class="step-number">3</div>
-                <div class="step-label">Payment</div>
-            </div>
-            <div class="checkout-step">
-                <div class="step-number">4</div>
-                <div class="step-label">Confirmation</div>
-            </div>
-        </div>
-
-        <div class="checkout-step-form">
-            <h2 class="form-section-title">Shipping Information</h2>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label">First Name</label>
-                    <input type="text" placeholder="Enter your first name">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" placeholder="Enter your last name">
-                </div>
-                <div class="form-group" style="grid-column: span 2;">
-                    <label class="form-label">Address</label>
-                    <input type="text" placeholder="Enter your street address">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">City</label>
-                    <input type="text" placeholder="Enter your city">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Postal Code</label>
-                    <input type="text" placeholder="Enter your postal code">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Phone</label>
-                    <input type="tel" placeholder="Enter your phone number">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" placeholder="Enter your email address">
-                </div>
-            </div>
-        </div>
-
-        <div class="checkout-step-form">
-            <h2 class="form-section-title">Payment Method</h2>
-            <div class="payment-methods">
-                <div class="payment-method selected" data-method="paystack">
-                    <div class="payment-logo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Paystack_Logo.svg/1200px-Paystack_Logo.svg.png" alt="Paystack">
-                    </div>
-                    <div class="payment-name">Paystack</div>
-                </div>
-                <div class="payment-method" data-method="flutterwave">
-                    <div class="payment-logo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flutterwave_Logo.svg/1200px-Flutterwave_Logo.svg.png" alt="Flutterwave">
-                    </div>
-                    <div class="payment-name">Flutterwave</div>
-                </div>
-                <div class="payment-method" data-method="momo">
-                    <div class="payment-logo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Mobile_Money_logo.svg/1200px-Mobile_Money_logo.svg.png" alt="Mobile Money">
-                    </div>
-                    <div class="payment-name">Mobile Money</div>
-                </div>
-                <div class="payment-method" data-method="whatsapp">
-                    <div class="payment-logo">
-                        <i class="fab fa-whatsapp" style="font-size: 2rem;"></i>
-                    </div>
-                    <div class="payment-name">WhatsApp Order</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="checkout-summary">
-            <h2 class="form-section-title">Order Summary</h2>
-            <div class="summary-item">
-                <span>Subtotal</span>
-                <span>₵950.00</span>
-            </div>
-            <div class="summary-item">
-                <span>Shipping</span>
-                <span>₵25.00</span>
-            </div>
-            <div class="summary-item">
-                <span>Tax</span>
-                <span>₵76.00</span>
-            </div>
-            <div class="summary-item summary-total">
-                <span>Total</span>
-                <span>₵1,051.00</span>
-            </div>
-            <button class="btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="completeCheckout()">
-                Complete Purchase
-            </button>
-        </div>
-    </div>
-
-    <!-- 
-    =====================================================================================================
-    |   QUICK VIEW MODAL - PRODUCT PREVIEW SYSTEM                                                       |
-    =====================================================================================================
-    -->
-    <div class="quick-view-modal" id="quick-view-modal">
-        <div class="quick-view-content">
-            <div class="quick-view-header">
-                <h2 class="quick-view-title">Classic White Tee</h2>
-                <span class="quick-view-close" onclick="closeQuickView()">&times;</span>
-            </div>
-            <div class="quick-view-body">
-                <div class="quick-view-images">
-                    <div class="quick-view-main-image">
-                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Classic White Tee">
-                    </div>
-                    <div class="quick-view-thumbnails">
-                        <div class="quick-view-thumbnail active">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=100&q=80" alt="White Tee Front">
-                        </div>
-                        <div class="quick-view-thumbnail">
-                            <img src="https://images.unsplash.com/photo-1541099649105-f19b12bb0a32?auto=format&fit=crop&w=100&q=80" alt="White Tee Back">
-                        </div>
-                        <div class="quick-view-thumbnail">
-                            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=100&q=80" alt="White Tee Detail">
-                        </div>
-                    </div>
-                </div>
-                <div class="quick-view-details">
-                    <div class="quick-view-price">₵150.00</div>
-                    
-                    <div class="size-selector">
-                        <label class="size-label">Size</label>
-                        <div class="sizes">
-                            <div class="size-option selected">S</div>
-                            <div class="size-option">M</div>
-                            <div class="size-option">L</div>
-                            <div class="size-option">XL</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-selector">
-                        <label class="color-label">Color</label>
-                        <div class="colors">
-                            <div class="color-option selected" style="background-color: #ffffff;"></div>
-                            <div class="color-option" style="background-color: #000000;"></div>
-                            <div class="color-option" style="background-color: #ff0000;"></div>
-                            <div class="color-option" style="background-color: #0000ff;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="stock-info">
-                        <span class="stock-indicator"></span>
-                        <span>50+ in stock</span>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-add-to-cart" onclick="addToCartFromQuickView()">
-                            <i class="fas fa-shopping-cart"></i> Add to Cart
-                        </button>
-                        <button class="btn btn-buy-now">
-                            <i class="fas fa-bolt"></i> Buy Now
-                        </button>
-                    </div>
-                    
-                    <div class="product-description">
-                        <h3 class="form-section-title">Product Description</h3>
-                        <div class="description-tabs">
-                            <div class="description-tab active">Details</div>
-                            <div class="description-tab">Shipping</div>
-                            <div class="description-tab">Returns</div>
-                        </div>
-                        <div class="description-content">
-                            <p>Premium 100% cotton t-shirt with a classic fit. Perfect for everyday wear with a soft, comfortable feel. Features a crew neck and short sleeves.</p>
-                            <p>Material: 100% Premium Cotton</p>
-                            <p>Care: Machine wash cold, tumble dry low</p>
-                            <p>Made in Ghana</p>
-                        </div>
-                    </div>
-                    
-                    <div class="related-products">
-                        <h3 class="related-title">You May Also Like</h3>
-                        <div class="related-grid">
-                            <div class="product-card">
-                                <div class="prod-img">
-                                    <img src="https://images.unsplash.com/photo-1551028919-ac7bcb7d0152?auto=format&fit=crop&w=600&q=80" alt="Urban Hoodie">
-                                    <div class="wishlist"><i class="far fa-heart"></i></div>
-                                </div>
-                                <div class="prod-info">
-                                    <h4>Urban Hoodie</h4>
-                                    <span class="price">₵350.00</span>
-                                    <button class="btn-add">Add to Cart</button>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="prod-img">
-                                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80" alt="Denim Jacket">
-                                    <div class="wishlist"><i class="far fa-heart"></i></div>
-                                </div>
-                                <div class="prod-info">
-                                    <h4>Denim Jacket</h4>
-                                    <span class="price">₵450.00</span>
-                                    <button class="btn-add">Add to Cart</button>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="prod-img">
-                                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="Black Essential">
-                                    <div class="wishlist"><i class="far fa-heart"></i></div>
-                                </div>
-                                <div class="prod-info">
-                                    <h4>Black Essential</h4>
-                                    <span class="price">₵200.00</span>
-                                    <button class="btn-add">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 
-    =====================================================================================================
-    |   ADMIN DRAWER - SIDEBAR FOR ACTIONS                                                              |
-    =====================================================================================================
-    -->
-    <div class="admin-drawer" id="admin-drawer">
-        <div class="drawer-header">
-            <h2 class="drawer-title">Create New Product</h2>
-            <span class="close-drawer" onclick="closeDrawer()">&times;</span>
-        </div>
-        <div class="drawer-body">
-            <div class="form-group">
-                <label class="form-label">Product Name</label>
-                <input type="text" class="admin-input" placeholder="Enter product name">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea class="admin-input" rows="4" placeholder="Enter product description"></textarea>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Price</label>
-                <input type="number" class="admin-input" placeholder="Enter price" min="0" step="0.01">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Category</label>
-                <select class="admin-input admin-select">
-                    <option value="">Select category</option>
-                    <option value="men">Men</option>
-                    <option value="women">Women</option>
-                    <option value="accessories">Accessories</option>
-                    <option value="footwear">Footwear</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Upload Images</label>
-                <input type="file" class="admin-input" multiple accept="image/*">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Stock Quantity</label>
-                <input type="number" class="admin-input" placeholder="Enter stock quantity" min="0">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Product Status</label>
-                <select class="admin-input admin-select">
-                    <option value="in-stock">In Stock</option>
-                    <option value="low-stock">Low Stock</option>
-                    <option value="out-of-stock">Out of Stock</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Featured Product</label>
-                <select class="admin-input admin-select">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-            </div>
-            <button class="admin-btn admin-btn-primary" style="width: 100%;">
-                <i class="fas fa-save"></i> Save Product
-            </button>
-        </div>
-    </div>
-
-    <!-- 
-    =====================================================================================================
-    |   ADMIN MODAL - DIALOG SYSTEM                                                                     |
-    =====================================================================================================
-    -->
-    <div class="admin-modal" id="admin-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Create New Order</h2>
-                <span class="modal-close" onclick="closeAdminModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="form-label">Customer</label>
-                    <select class="admin-input admin-select">
-                        <option value="">Select customer</option>
-                        <option value="1">Kwame Mensah</option>
-                        <option value="2">Ama Appiah</option>
-                        <option value="3">Kofi Asante</option>
-                        <option value="4">Esi Owusu</option>
-                        <option value="5">Yaw Boateng</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Products</label>
-                    <div class="admin-input" style="min-height: 150px; background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: var(--sys-admin-input-radius);">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <span>Classic White Tee</span>
-                            <span>₵150.00 x 1</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <span>Urban Hoodie</span>
-                            <span>₵350.00 x 1</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span><strong>Total</strong></span>
-                            <span><strong>₵500.00</strong></span>
-                        </div>
-                    </div>
-                    <button class="admin-btn" style="width: 100%; margin-top: 0.5rem;">
-                        <i class="fas fa-plus"></i> Add Product
-                    </button>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Shipping Address</label>
-                    <textarea class="admin-input" rows="3" placeholder="Enter shipping address"></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Payment Method</label>
-                    <select class="admin-input admin-select">
-                        <option value="paystack">Paystack</option>
-                        <option value="flutterwave">Flutterwave</option>
-                        <option value="momo">Mobile Money</option>
-                        <option value="whatsapp">WhatsApp Order</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Order Status</label>
-                    <select class="admin-input admin-select">
-                        <option value="processing">Processing</option>
-                        <option value="shipped">Shipped</option>
-                        <option value="delivered">Delivered</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="admin-btn" onclick="closeAdminModal()">Cancel</button>
-                <button class="admin-btn admin-btn-primary">Create Order</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 
-    =====================================================================================================
-    |   NAVIGATION BAR - ENTERPRISE-GRADE NAV                                                           |
-    =====================================================================================================
-    -->
     <nav class="navbar">
         <div class="logo">BRAND.</div>
-        <ul class="nav-links" id="nav-links">
+        <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#shop">Shop</a></li>
-            <li><a href="#categories">Collections</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Collections</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
         <div class="nav-icons">
             <i class="fas fa-search"></i>
@@ -3857,18 +937,241 @@
                 <i class="fas fa-shopping-bag"></i>
                 <span class="cart-count">3</span>
             </div>
-            <i class="fas fa-user"></i>
-            <i class="fas fa-bars menu-toggle" onclick="toggleMobileMenu()"></i>
+            <i class="fas fa-user" onclick="toggleAdminDashboard()"></i>
         </div>
     </nav>
 
-    <!-- 
-    =====================================================================================================
-    |   HERO SECTION - PREMIUM LANDING EXPERIENCE                                                       |
-    =====================================================================================================
-    -->
     <header class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Define Your Style</h1>
-            <p class="hero-subtitle">Premium clothing designed for the modern individual. Quality meets comfort in every stitch.</p>
-           
+            <p class="hero-subtitle">Premium clothing designed for the modern individual. Quality meets comfort.</p>
+            <a href="#shop" class="btn-primary">Shop Collection</a>
+        </div>
+    </header>
+
+    <section class="section" id="shop">
+        <div class="container">
+            <h2 class="section-title">New Arrivals</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="prod-img">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Product">
+                        <span class="badge">New</span>
+                        <div class="wishlist" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></div>
+                    </div>
+                    <div class="prod-info">
+                        <h4>Classic White Tee</h4>
+                        <span class="price">₵150.00</span>
+                        <button class="btn-add" onclick="addToCart('Classic White Tee', 150)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="prod-img">
+                        <img src="https://images.unsplash.com/photo-1551028919-ac7bcb7d0152?auto=format&fit=crop&w=600&q=80" alt="Product">
+                        <div class="wishlist" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></div>
+                    </div>
+                    <div class="prod-info">
+                        <h4>Urban Hoodie</h4>
+                        <span class="price">₵350.00</span>
+                        <button class="btn-add" onclick="addToCart('Urban Hoodie', 350)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="prod-img">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80" alt="Product">
+                        <span class="badge">Sale</span>
+                        <div class="wishlist" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></div>
+                    </div>
+                    <div class="prod-info">
+                        <h4>Denim Jacket</h4>
+                        <span class="price">₵450.00</span>
+                        <button class="btn-add" onclick="addToCart('Denim Jacket', 450)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="prod-img">
+                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="Product">
+                        <div class="wishlist" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></div>
+                    </div>
+                    <div class="prod-info">
+                        <h4>Black Essential</h4>
+                        <span class="price">₵200.00</span>
+                        <button class="btn-add" onclick="addToCart('Black Essential', 200)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/233000000000" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div class="footer-content container">
+            <div class="footer-col">
+                <h3>BRAND.</h3>
+                <p>Elevating fashion since 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Links</h4>
+                <a href="#">Home</a>
+                <a href="#">Shop</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div class="socials">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                </div>
+            </div>
+        </div>
+        <div class="copyright container">
+            <p>&copy; 2024 Brand Name. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Switcher
+        function setTheme(themeName) {
+            document.body.className = themeName;
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(themeName)) {
+                    btn.classList.add('active');
+                }
+            });
+            localStorage.setItem('selectedTheme', themeName);
+        }
+        
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('selectedTheme') || 'theme-minimal';
+            setTheme(savedTheme);
+        });
+
+        // Cart Functions
+        function openCart() {
+            document.getElementById('cart-sidebar').classList.add('open');
+            document.querySelector('.cart-overlay').classList.add('open');
+        }
+        
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            document.querySelector('.cart-overlay').classList.remove('open');
+        }
+        
+        function updateQuantity(index, change) {
+            const quantityEl = document.querySelectorAll('.quantity-value')[index];
+            let quantity = parseInt(quantityEl.textContent);
+            quantity = Math.max(1, quantity + change);
+            quantityEl.textContent = quantity;
+            updateCartTotal();
+        }
+        
+        function removeCartItem(index) {
+            const items = document.querySelectorAll('.cart-item');
+            items[index].remove();
+            updateCartTotal();
+            
+            // Update cart count
+            const cartCount = document.querySelector('.cart-count');
+            cartCount.textContent = document.querySelectorAll('.cart-item').length;
+        }
+        
+        function addToCart(name, price) {
+            const cartItems = document.getElementById('cart-items');
+            const newItem = document.createElement('div');
+            newItem.className = 'cart-item';
+            newItem.innerHTML = `
+                <div class="cart-item-img">
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="${name}">
+                </div>
+                <div class="cart-item-details">
+                    <div class="cart-item-title">${name}</div>
+                    <div class="cart-item-price">₵${price}.00</div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn minus" onclick="updateQuantity(${document.querySelectorAll('.cart-item').length}, -1)">-</button>
+                        <span class="quantity-value">1</span>
+                        <button class="quantity-btn plus" onclick="updateQuantity(${document.querySelectorAll('.cart-item').length}, 1)">+</button>
+                    </div>
+                    <div class="remove-item" onclick="removeCartItem(${document.querySelectorAll('.cart-item').length})">
+                        <i class="fas fa-trash"></i> Remove
+                    </div>
+                </div>
+            `;
+            cartItems.appendChild(newItem);
+            updateCartTotal();
+            
+            // Update cart count
+            const cartCount = document.querySelector('.cart-count');
+            cartCount.textContent = document.querySelectorAll('.cart-item').length;
+            
+            // Show toast
+            showToast(`Added ${name} to cart`);
+        }
+        
+        function updateCartTotal() {
+            let total = 0;
+            document.querySelectorAll('.cart-item').forEach(item => {
+                const priceText = item.querySelector('.cart-item-price').textContent;
+                const price = parseFloat(priceText.replace('₵', '').replace('.00', ''));
+                const quantity = parseInt(item.querySelector('.quantity-value').textContent);
+                total += price * quantity;
+            });
+            document.querySelector('.cart-total span:last-child').textContent = `₵${total}.00`;
+        }
+        
+        function completeCheckout() {
+            if (document.querySelectorAll('.cart-item').length === 0) {
+                showToast("Your cart is empty!");
+                return;
+            }
+            
+            alert('Order placed successfully! (This is a demo)');
+            document.getElementById('cart-items').innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+            document.querySelector('.cart-count').textContent = '0';
+            closeCart();
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }, 10);
+        }
+
+        // Wishlist
+        function toggleWishlist(element) {
+            const icon = element.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'active');
+                element.classList.add('active');
+                showToast('Added to wishlist');
+            } else {
+                icon.classList.remove('fas', 'active');
+                icon.classList.add('far');
+                element.classList.remove('active');
+                showToast('Removed from wishlist');
+            }
+        }
+
+        // Admin Dashboard
+        function toggleAdminDashboard() {
+            const dashboard = document.getElementById('admin-dashboard');
+            dashboard.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
